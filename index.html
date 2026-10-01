@@ -584,7 +584,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
 
   <div class="submit-box">
     <h3>Your details</h3>
-    <p>Add the email you’d like attached to this response. Your completed answers will be turned into a PDF. When you choose “Send PDF & response to Olamo,” the PDF will be attached to the submission email.</p>
+    <p>Add the email you’d like attached to this response. Your answers can be submitted directly to me, and you can also generate a PDF copy. Because browser-generated attachments are not reliably delivered through the form service, the PDF has its own email/share button below.</p>
   </div>
 
   <div class="question-stack">
@@ -608,9 +608,9 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
   <div class="signature">Olalekan</div>
 
   <div class="delivery-actions">
-    <button id="sendDirectBtn" type="button" class="btn primary">Send PDF & response to Olamo</button>
-    <button id="downloadPdfBtn" type="button" class="btn outline">Download PDF</button>
+    <button id="sendDirectBtn" type="button" class="btn primary">Submit Response to Olamo</button>
     <button id="emailPdfBtn" type="button" class="btn outline">Email PDF to Olamo</button>
+    <button id="downloadPdfBtn" type="button" class="btn outline">Download PDF</button>
   </div>
   <div id="deliveryStatus" class="delivery-status"></div>
   <div class="actions">
@@ -1133,19 +1133,19 @@ emailPdfBtn.addEventListener('click',async()=>{
     const shareData={
       files:[file],
       title:'Custom Exchange Windows - Isabelle Planning Review',
-      text:'Please send this completed planning review to olamocreate@gmail.com'
+      text:'Please send this completed Custom Exchange planning review to olamocreate@gmail.com'
     };
     if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
       try{
         await navigator.share(shareData);
-        setDeliveryStatus('The PDF has been opened in your device share menu. Choose your email app and send it to olamocreate@gmail.com.','ok');
+        setDeliveryStatus('Your PDF is ready in the share menu. Choose your email app, confirm it is addressed to olamocreate@gmail.com, then send.','ok');
       }catch(shareErr){
         if(shareErr && shareErr.name==='AbortError'){
           setDeliveryStatus('The share window was closed. You can use Download PDF instead.','warn');
         }else{
           downloadPdfFile(file);
           window.location.href='mailto:olamocreate@gmail.com?subject='+encodeURIComponent('Custom Exchange Windows - Isabelle Planning Review')+'&body='+encodeURIComponent('Hi Olalekan,\n\nPlease find my completed Custom Exchange planning review attached.\n\nIsabelle\n\nThe PDF has also been downloaded to this device so it can be attached to this email.');
-          setDeliveryStatus('Your PDF was downloaded and your email app was opened. Please attach the downloaded PDF before sending.','warn');
+          setDeliveryStatus('Your browser could not attach the PDF automatically. The PDF was downloaded and your email app was opened. Attach the downloaded PDF, then send it to olamocreate@gmail.com.','warn');
         }
       }
     }else{
@@ -1162,48 +1162,28 @@ emailPdfBtn.addEventListener('click',async()=>{
   }
 });
 
-sendDirectBtn.addEventListener('click',async()=>{
+sendDirectBtn.addEventListener('click',()=>{
   const original=sendDirectBtn.textContent;
   sendDirectBtn.disabled=true;
-  sendDirectBtn.textContent='Creating PDF...';
-  setDeliveryStatus('Preparing your PDF for email delivery...','warn');
+  sendDirectBtn.textContent='Submitting response...';
+  setDeliveryStatus('Sending your questionnaire answers to Olamo...','warn');
+  saveDraft();
 
-  try{
-    const file=await createPdfFile();
-
-    // FormSubmit documents file uploads through a normal multipart/form-data
-    // form submission. Put the generated PDF into the hidden file input.
-    const fileInput=document.getElementById('pdfAttachment');
-    let attached=false;
-
-    try{
-      const dt=new DataTransfer();
-      dt.items.add(file);
-      fileInput.files=dt.files;
-      attached=fileInput.files && fileInput.files.length===1;
-    }catch(assignErr){
-      console.error('Could not place PDF into file input',assignErr);
-    }
-
-    if(!attached){
-      // Preserve a local copy so Isabelle never loses the generated PDF.
-      downloadPdfFile(file);
-      throw new Error('This browser would not attach the generated PDF automatically. The PDF has been downloaded instead.');
-    }
-
-    saveDraft();
-    sendDirectBtn.textContent='Sending PDF to Olamo...';
-    setDeliveryStatus('Sending the completed response with the PDF attached...','warn');
-
-    // HTMLFormElement.submit() deliberately bypasses our submit-event blocker
-    // and native validation. The form already uses POST + multipart/form-data.
-    HTMLFormElement.prototype.submit.call(form);
-  }catch(err){
-    console.error(err);
-    setDeliveryStatus((err && err.message ? err.message : 'The PDF could not be sent automatically.')+' You can use “Email PDF to Olamo” or “Download PDF” below.','error');
-    sendDirectBtn.textContent=original;
-    sendDirectBtn.disabled=false;
+  // The response email is intentionally text/form data only.
+  // PDF delivery is handled separately by the Email PDF button.
+  const fileInput=document.getElementById('pdfAttachment');
+  if(fileInput){
+    try{ fileInput.value=''; }catch(e){}
   }
+
+  // Submit through FormSubmit using the normal HTML form flow.
+  HTMLFormElement.prototype.submit.call(form);
+
+  // The browser will normally navigate away immediately after this line.
+  setTimeout(()=>{
+    sendDirectBtn.disabled=false;
+    sendDirectBtn.textContent=original;
+  },2500);
 });
 form.addEventListener('submit',e=>e.preventDefault());
 
