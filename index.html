@@ -7,7 +7,6 @@
 <meta name="description" content="A private Google visibility and advertising planning review prepared for Isabelle and Custom Exchange Windows.">
 <meta name="theme-color" content="#102f34">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <style>
 :root{
   --ink:#142326;
@@ -912,108 +911,168 @@ function addPageHeader(doc,label){
   }
 }
 
+async function ensureJsPdf(){
+  if(window.jspdf && window.jspdf.jsPDF) return window.jspdf.jsPDF;
+  const sources=[
+    'https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js',
+    'https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js'
+  ];
+  let lastErr=null;
+  for(const src of sources){
+    try{
+      await new Promise((resolve,reject)=>{
+        const s=document.createElement('script');
+        s.src=src;
+        s.async=true;
+        s.onload=resolve;
+        s.onerror=()=>reject(new Error('Could not load PDF library from '+src));
+        document.head.appendChild(s);
+      });
+      if(window.jspdf && window.jspdf.jsPDF) return window.jspdf.jsPDF;
+    }catch(err){ lastErr=err; }
+  }
+  throw lastErr||new Error('PDF library is unavailable on this device.');
+}
+
+function cleanPdfText(value){
+  return String(value??'')
+    .replace(/[\u2018\u2019]/g,"'")
+    .replace(/[\u201C\u201D]/g,'"')
+    .replace(/[\u2013\u2014]/g,'-')
+    .replace(/\u2022/g,'-')
+    .replace(/\u2192/g,'->')
+    .replace(/[^\x09\x0A\x0D\x20-\x7E]/g,'');
+}
+
+function pdfWrappedText(doc,text,x,y,maxWidth,lineHeight=13,options={}){
+  const lines=doc.splitTextToSize(cleanPdfText(text),maxWidth);
+  doc.text(lines,x,y,options);
+  return y+(lines.length*lineHeight);
+}
+
+function pdfSectionHeader(doc,title,y){
+  if(y>700){doc.addPage();addPageHeader(doc,'Continued');y=58;}
+  doc.setFont('times','bold');
+  doc.setFontSize(18);
+  doc.setTextColor(16,47,52);
+  doc.text(cleanPdfText(title),46,y);
+  return y+22;
+}
+
+function pdfKeyValue(doc,label,value,y){
+  const pageBottom=730;
+  const labelWidth=155;
+  const valueWidth=345;
+  const labelLines=doc.splitTextToSize(cleanPdfText(label),labelWidth);
+  const valueLines=doc.splitTextToSize(cleanPdfText(value||'No response provided'),valueWidth);
+  const lineCount=Math.max(labelLines.length,valueLines.length);
+  const height=Math.max(34,lineCount*12+18);
+  if(y+height>pageBottom){
+    doc.addPage();
+    addPageHeader(doc,'Responses');
+    y=54;
+  }
+  doc.setFillColor(249,251,249);
+  doc.roundedRect(46,y,520,height,8,8,'F');
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8.5);
+  doc.setTextColor(24,77,83);
+  doc.text(labelLines,58,y+16);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8.5);
+  doc.setTextColor(20,35,38);
+  doc.text(valueLines,220,y+16);
+  return y+height+7;
+}
+
 async function makePdf(){
   const answers=getAnswers();
-  const {jsPDF}=window.jspdf;
+  const jsPDF=await ensureJsPdf();
   const doc=new jsPDF({unit:'pt',format:'letter',compress:true});
   const W=612,H=792,ml=46,mr=46;
-  const dark=[16,47,52],brand=[24,77,83],muted=[92,111,113],soft=[245,248,246],line=[224,231,227],gold=[167,123,56];
+  const dark=[16,47,52],brand=[24,77,83],muted=[92,111,113],soft=[245,248,246],line=[224,231,227];
 
   // Cover
-  doc.setFillColor(...dark);doc.rect(0,0,W,H,'F');
-  doc.setFillColor(246,240,229);doc.roundedRect(46,56,54,54,15,15,'F');
-  doc.setTextColor(...dark);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text('CE',73,89,{align:'center'});
-  doc.setTextColor(189,211,206);doc.setFontSize(9);doc.text('CUSTOM EXCHANGE WINDOWS',46,146);
-  doc.setTextColor(255,255,255);doc.setFont('times','bold');doc.setFontSize(34);
-  doc.text(doc.splitTextToSize('Google Visibility & Lead Generation Planning Review',480),46,198);
-  doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(211,226,222);
-  doc.text('Prepared for '+PDF_TEMPLATE.preparedFor,46,310);
-  doc.text('Prepared by '+PDF_TEMPLATE.preparedBy,46,330);
+  doc.setFillColor(...dark); doc.rect(0,0,W,H,'F');
+  doc.setFillColor(246,240,229); doc.roundedRect(46,56,54,54,15,15,'F');
+  doc.setTextColor(...dark); doc.setFont('helvetica','bold'); doc.setFontSize(17); doc.text('CE',73,89,{align:'center'});
+  doc.setTextColor(189,211,206); doc.setFontSize(9); doc.text('CUSTOM EXCHANGE WINDOWS',46,146);
+  doc.setTextColor(255,255,255); doc.setFont('times','bold'); doc.setFontSize(32);
+  pdfWrappedText(doc,'Google Visibility & Lead Generation Planning Review',46,198,475,34);
+  doc.setFont('helvetica','normal'); doc.setFontSize(12); doc.setTextColor(211,226,222);
+  doc.text('Prepared for '+cleanPdfText(PDF_TEMPLATE.preparedFor),46,310);
+  doc.text('Prepared by '+cleanPdfText(PDF_TEMPLATE.preparedBy),46,330);
+
   const respondent=answers['Respondent name']||'Isabelle';
-  doc.setFillColor(255,255,255);doc.setDrawColor(255,255,255);
-  doc.roundedRect(46,390,520,132,18,18,'F');
-  doc.setTextColor(...dark);doc.setFont('helvetica','bold');doc.setFontSize(11);
-  doc.text('COMPLETED RESPONSE',68,421);
-  doc.setFont('times','bold');doc.setFontSize(25);doc.text(respondent,68,458);
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
-  doc.text(answers.email||'',68,480);
-  doc.text('Submitted '+new Date().toLocaleString(),68,500);
-  doc.setTextColor(180,201,197);doc.setFontSize(8);
-  doc.text('This document records discovery information only. It does not authorize advertising spend or account changes.',46,742);
+  doc.setFillColor(255,255,255); doc.roundedRect(46,390,520,132,18,18,'F');
+  doc.setTextColor(...dark); doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.text('COMPLETED RESPONSE',68,421);
+  doc.setFont('times','bold'); doc.setFontSize(25); doc.text(cleanPdfText(respondent),68,458);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(...muted);
+  doc.text(cleanPdfText(answers.email||''),68,480);
+  doc.text('Created '+cleanPdfText(new Date().toLocaleString()),68,500);
+  doc.setTextColor(180,201,197); doc.setFontSize(8);
+  pdfWrappedText(doc,'This document records discovery information only. It does not authorize advertising spend or account changes.',46,742,500,10);
 
-  // What Isabelle already shared
-  doc.addPage();addPageHeader(doc,'Context');
-  doc.setTextColor(...dark);doc.setFont('times','bold');doc.setFontSize(24);doc.text('What Isabelle had already shared',ml,68);
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
-  doc.text(doc.splitTextToSize('These points came from Isabelle before the questionnaire. They are included here so the final recommendation does not ask her to repeat herself.',520),ml,90);
-  doc.autoTable({
-    startY:124,margin:{left:ml,right:mr},
-    head:[['Topic','Client-provided context']],
-    body:PDF_TEMPLATE.alreadyShared,
-    theme:'grid',
-    styles:{font:'helvetica',fontSize:9,cellPadding:9,lineColor:line,lineWidth:.6,textColor:dark,valign:'top'},
-    headStyles:{fillColor:soft,textColor:brand,fontStyle:'bold'},
-    columnStyles:{0:{cellWidth:128,fontStyle:'bold'},1:{cellWidth:392}}
-  });
-  let y=doc.lastAutoTable.finalY+28;
-  doc.setFont('times','bold');doc.setFontSize(20);doc.setTextColor(...dark);doc.text('Working recommendation before the quote',ml,y); y+=16;
-  doc.autoTable({
-    startY:y+6,margin:{left:ml,right:mr},
-    body:PDF_TEMPLATE.recommendation,
-    theme:'plain',
-    styles:{font:'helvetica',fontSize:9,cellPadding:8,textColor:dark},
-    alternateRowStyles:{fillColor:soft},
-    columnStyles:{0:{cellWidth:118,fontStyle:'bold',textColor:brand},1:{cellWidth:402}}
+  // Context page
+  doc.addPage(); addPageHeader(doc,'Context');
+  let y=68;
+  doc.setTextColor(...dark); doc.setFont('times','bold'); doc.setFontSize(24); doc.text('What Isabelle had already shared',ml,y); y+=24;
+  doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(...muted);
+  y=pdfWrappedText(doc,'These points came from Isabelle before the questionnaire. They are included so the final recommendation does not ask her to repeat herself.',ml,y,520,13)+16;
+
+  PDF_TEMPLATE.alreadyShared.forEach(([label,value])=>{
+    y=pdfKeyValue(doc,label,value,y);
   });
 
-  // Answers
+  y+=10;
+  y=pdfSectionHeader(doc,'Working recommendation before the quote',y);
+  PDF_TEMPLATE.recommendation.forEach(([label,value])=>{
+    y=pdfKeyValue(doc,label,value,y);
+  });
+
+  // Answer sections
   PDF_TEMPLATE.answerSections.forEach((section,idx)=>{
-    doc.addPage();addPageHeader(doc,'Responses '+(idx+1)+' / '+PDF_TEMPLATE.answerSections.length);
-    doc.setFont('times','bold');doc.setFontSize(23);doc.setTextColor(...dark);doc.text(section.heading,ml,68);
-    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...muted);
-    doc.text('Isabelle’s submitted answers',ml,88);
-    const rows=section.rows.map(([label,token])=>[label,replacePlaceholders(token,answers)]);
-    doc.autoTable({
-      startY:110,margin:{left:ml,right:mr},
-      body:rows,
-      theme:'grid',
-      styles:{font:'helvetica',fontSize:9,cellPadding:9,lineColor:line,lineWidth:.6,textColor:dark,valign:'top',overflow:'linebreak'},
-      alternateRowStyles:{fillColor:[249,251,249]},
-      columnStyles:{0:{cellWidth:178,fontStyle:'bold',textColor:brand},1:{cellWidth:342}},
-      didDrawPage:()=>{}
+    doc.addPage(); addPageHeader(doc,'Responses '+(idx+1)+' / '+PDF_TEMPLATE.answerSections.length);
+    let sy=68;
+    doc.setFont('times','bold'); doc.setFontSize(22); doc.setTextColor(...dark); doc.text(cleanPdfText(section.heading),ml,sy); sy+=22;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...muted); doc.text("Isabelle's submitted answers",ml,sy); sy+=20;
+    section.rows.forEach(([label,token])=>{
+      sy=pdfKeyValue(doc,label,replacePlaceholders(token,answers),sy);
     });
   });
 
-  // Sources / next steps
-  doc.addPage();addPageHeader(doc,'Sources & next step');
-  doc.setFont('times','bold');doc.setFontSize(24);doc.setTextColor(...dark);doc.text('Sources used for the planning review',ml,68);
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
-  doc.text('These are the public references used to separate platform rules from client experience.',ml,90);
-  y=122;
-  PDF_TEMPLATE.sources.forEach(([label,url],i)=>{
-    if(y>700){doc.addPage();addPageHeader(doc,'Sources');y=62;}
-    doc.setFillColor(i%2?249:245, i%2?251:248, i%2?249:246);
-    doc.roundedRect(ml,y-14,520,45,9,9,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...dark);doc.text(label,ml+12,y);
-    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...brand);
-    doc.textWithLink(url,ml+12,y+15,{url});
+  // Sources
+  doc.addPage(); addPageHeader(doc,'Sources & next step');
+  y=68;
+  doc.setFont('times','bold'); doc.setFontSize(22); doc.setTextColor(...dark); doc.text('Sources used for the planning review',ml,y); y+=24;
+  doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(...muted);
+  y=pdfWrappedText(doc,'These are the public references used to separate platform rules from client experience.',ml,y,520,13)+14;
+
+  PDF_TEMPLATE.sources.forEach(([label,url])=>{
+    if(y>690){doc.addPage();addPageHeader(doc,'Sources');y=58;}
+    doc.setFillColor(249,251,249); doc.roundedRect(46,y,520,46,8,8,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(...dark); doc.text(cleanPdfText(label),58,y+15);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(...brand);
+    const shortUrl=cleanPdfText(url);
+    doc.textWithLink(shortUrl,58,y+30,{url});
     y+=54;
   });
-  y+=18;
-  doc.setDrawColor(...line);doc.line(ml,y,566,y);y+=28;
-  doc.setFont('times','bold');doc.setFontSize(22);doc.setTextColor(...dark);doc.text('What happens next',ml,y);y+=20;
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
-  doc.text(doc.splitTextToSize('Olalekan will review these answers alongside the public business setup, then prepare a recommended order of work and quotation separating one-time setup, any website or landing-page work, ongoing advertising management, and the media budget paid directly to Google.',520),ml,y);
-  y+=66;
-  doc.setFillColor(...soft);doc.roundedRect(ml,y,520,66,12,12,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...brand);doc.text('CLIENT RESPONSE',ml+14,y+22);
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...dark);
-  doc.text((answers['Respondent name']||'Isabelle')+'  |  '+(answers.email||''),ml+14,y+44);
+
+  y+=12;
+  if(y>650){doc.addPage();addPageHeader(doc,'Next step');y=68;}
+  y=pdfSectionHeader(doc,'What happens next',y);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(...muted);
+  y=pdfWrappedText(doc,'Olalekan will review these answers alongside the public business setup, then prepare a recommended order of work and quotation separating one-time setup, any website or landing-page work, ongoing advertising management, and the media budget paid directly to Google.',ml,y,520,13)+18;
+
+  doc.setFillColor(...soft); doc.roundedRect(ml,y,520,64,10,10,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(...brand); doc.text('CLIENT RESPONSE',ml+14,y+20);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(...dark);
+  doc.text(cleanPdfText((answers['Respondent name']||'Isabelle')+' | '+(answers.email||'')),ml+14,y+42);
 
   const total=doc.getNumberOfPages();
   for(let p=2;p<=total;p++){
     doc.setPage(p);
-    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(145,157,158);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(145,157,158);
     doc.text('Custom Exchange Windows - Planning Review',ml,770);
     doc.text(String(p)+' / '+String(total),566,770,{align:'right'});
   }
@@ -1058,7 +1117,7 @@ downloadPdfBtn.addEventListener('click',async()=>{
     setDeliveryStatus('Your PDF has been created and downloaded.','ok');
   }catch(err){
     console.error(err);
-    setDeliveryStatus('The PDF could not be created on this device. Please refresh the page and try again.','error');
+    setDeliveryStatus('PDF error: '+(err && err.message ? err.message : 'Unknown PDF generation error')+'. Please refresh and try again.','error');
   }finally{
     downloadPdfBtn.disabled=false;
     downloadPdfBtn.textContent=original;
@@ -1096,7 +1155,7 @@ emailPdfBtn.addEventListener('click',async()=>{
     }
   }catch(err){
     console.error(err);
-    setDeliveryStatus('The PDF could not be created. Please refresh the page and try again.','error');
+    setDeliveryStatus('PDF error: '+(err && err.message ? err.message : 'Unknown PDF generation error')+'. Please refresh and try again.','error');
   }finally{
     emailPdfBtn.disabled=false;
     emailPdfBtn.textContent=original;
