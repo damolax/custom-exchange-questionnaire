@@ -15,6 +15,7 @@
 .page{display:none;padding:42px 48px 48px}.page.active{display:block}.page h2{font-size:27px;line-height:1.25;margin:0 0 14px}.lead{color:var(--muted);font-size:16px;margin-bottom:28px}
 .note{border:1px solid #d6e2e5;background:#f7fafb;border-radius:14px;padding:18px 20px;margin:20px 0}.note strong{display:block;margin-bottom:5px}
 .findings{display:grid;gap:14px}.finding{padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#fff}.finding h3{font-size:16px;margin:0 0 6px}.finding p{margin:0;color:var(--muted)}
+.fact-table{width:100%;border-collapse:separate;border-spacing:0;margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}.fact-table th,.fact-table td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.fact-table tr:last-child td{border-bottom:0}.fact-table th{background:var(--soft);font-size:13px}.fact-table td:first-child{font-weight:800;width:28%}.source-link{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;color:var(--accent);text-decoration:none}.source-link:hover{text-decoration:underline}.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;padding:4px 7px;border-radius:999px;background:#eaf2f4;color:var(--accent2);margin-bottom:7px}
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:24px 0}.flow div{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 10px;text-align:center;font-size:13px;font-weight:700}
 .q{padding:24px 0;border-top:1px solid var(--line)}.q:first-of-type{border-top:0}.q label.question{display:block;font-weight:800;font-size:16px;margin-bottom:7px}.why{font-size:13px;color:var(--muted);margin:0 0 12px}
 input[type=text],input[type=email],input[type=number],textarea,select{width:100%;border:1px solid #cbd7db;border-radius:10px;padding:12px 13px;font:inherit;color:var(--ink);background:#fff;outline:none}textarea{min-height:105px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(31,91,104,.12)}
@@ -45,54 +46,81 @@ input[type=text],input[type=email],input[type=number],textarea,select{width:100%
 <input type="hidden" name="_next" value="https://damolax.github.io/custom-exchange-questionnaire/thanks.html">
 <input type="file" id="pdfAttachment" name="attachment" accept="application/pdf" style="display:none">
 
-<section class="page active" data-title="Introduction">
-<h2>Hi Isabelle, thank you for sending everything over.</h2>
-<p class="lead">I’ve reviewed the information you shared about Custom Exchange Windows, including the current website, the Pleasanton Google listing, the second business location, and the situation with Yelp advertising. Before I quote the project, I want to make sure the strategy fits how the business actually operates.</p>
-<div class="note"><strong>This is not a commitment to start advertising.</strong>These questions are simply to help me identify what should be corrected first, what can be kept, and how we can measure whether future advertising is actually producing useful enquiries and sales.</div>
-<div class="findings">
-<div class="finding"><h3>Website</h3><p>The current website gives us a usable starting point. I would not make a complete rebuild part of the advertising project unless we later find that it is necessary.</p></div>
-<div class="finding"><h3>Google Business Profiles</h3><p>I would not merge or delete either profile until we confirm whether Pleasanton and San Jose are genuinely separate eligible locations. “One public profile” and “one login managing two profiles” are two different things.</p></div>
-<div class="finding"><h3>Yelp reviews</h3><p>The existing Yelp reviews cannot simply be moved into Google. However, genuine past customers can be invited to leave a new, honest Google review if you still have a legitimate way to contact them. The request should be neutral, voluntary, and never tied to an incentive.</p></div>
-<div class="finding"><h3>Advertising</h3><p>The goal should be more than clicks. I want us to be able to see which ads produce calls or consultation requests, which leads receive estimates, and which eventually become paying projects.</p></div>
-</div>
+<section class="page active" data-title="What I already understand">
+<h2>Hi Isabelle, I’ve gone through what you already sent.</h2>
+<p class="lead">I don’t want to ask you and your husband to repeat information you’ve already given me. I’ve separated what I understand so far from the few items I still need to confirm before I can recommend the safest Google Business Profile setup and quote the advertising work accurately.</p>
+
+<table class="fact-table">
+<thead><tr><th>What I already understand</th><th>My reading of it</th></tr></thead>
+<tbody>
+<tr><td>Two Google profiles</td><td>You currently have one profile under <strong>Custom Exchange, Inc.</strong> and another under <strong>Custom Exchange Windows</strong>, with the intention of covering two different cities.</td></tr>
+<tr><td>Two service areas</td><td>Your website publicly lists a Pleasanton-area address and a San Jose-area address, both described as <strong>by appointment only</strong>, with separate groups of cities served from each area. <a class="source-link" target="_blank" rel="noopener" href="https://www.customexchangeinc.com/contact/">View the company contact page ↗</a></td></tr>
+<tr><td>Yelp</td><td>Yelp currently holds much of the business’s review history, but you want to rely less on paid Yelp visibility and build Google into the stronger long-term channel.</td></tr>
+<tr><td>Main objective</td><td>You want both legitimate Google locations to be strong review destinations if Google’s rules allow both to remain active, and you also want advertising that can be tied to actual enquiries and sales.</td></tr>
+</tbody>
+</table>
+
+<div class="note"><strong>One detail I noticed immediately</strong>The two Google Maps URLs forwarded in the WhatsApp message are identical. I therefore only have one unique Maps link from that message. I’ll ask for the second profile link below so I can compare the two listings directly.</div>
+
+<h2 style="margin-top:34px">What the platforms officially say</h2>
+<table class="fact-table">
+<thead><tr><th>Topic</th><th>Relevant rule / fact</th></tr></thead>
+<tbody>
+<tr><td>Two Google locations</td><td>Google says a service business can have a profile for each location when the locations have <strong>separate staff and separate service areas</strong>. If there is no true storefront and the business travels to customers, Google otherwise limits a service-area business to one profile. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3038177?hl=en">Google Business Profile guidelines ↗</a></td></tr>
+<tr><td>Business names</td><td>Google expects a business name to reflect the name used consistently in the real world, and multiple locations of the same brand should generally use consistent naming. That means “Custom Exchange, Inc.” versus “Custom Exchange Windows” needs to match real-world branding, not just be chosen for city targeting. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3038177?hl=en">Google naming guidelines ↗</a></td></tr>
+<tr><td>Google reviews</td><td>Google has procedures for moving reviews in some duplicate or relocation situations, but reviews from another platform such as Yelp do not become native Google reviews. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3098204?hl=en">Google review-transfer guidance ↗</a></td></tr>
+<tr><td>Yelp visibility</td><td>Yelp confirms that paid advertisers can appear in <strong>Sponsored Results</strong>, which can increase paid visibility. Separately, Yelp states that its review recommendation software treats advertisers and non-advertisers the same. I therefore want to judge the Yelp spend by leads and sales rather than assume the review filter itself changes because of budget. <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/How-does-Yelp-determine-its-search-results?l=en_US">Yelp search-results explanation ↗</a> <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/Do-businesses-that-advertise-on-Yelp-get-special-treatment-by-the-recommendation-software?l=en_GB">Yelp review-system explanation ↗</a></td></tr>
+</tbody>
+</table>
+
+<div class="note"><strong>This review is not a commitment to start advertising.</strong>My aim is to establish which assets are legitimate, preserve useful review equity, and build a system where future spend can be measured against qualified enquiries, estimates and completed projects.</div>
 <div class="actions"><span></span><button type="button" class="btn primary next">Continue</button></div>
 </section>
 
 <section class="page" data-title="Proposed direction">
-<h2>The direction I’m currently considering</h2>
-<p class="lead">For paid Google Search traffic, I would prefer a focused landing page on the existing Custom Exchange domain rather than sending every ad visitor to a general homepage.</p>
-<div class="flow"><div>Google search</div><div>Relevant ad</div><div>Focused landing page</div><div>Call / consultation request</div><div>Estimate → project</div></div>
-<div class="note"><strong>Why a dedicated page?</strong>Someone searching for replacement windows in a specific area should arrive on a page that immediately confirms the relevant service, establishes trust, shows appropriate proof, and gives them a simple next step. The main Google Business Profile can still use the normal company website where appropriate.</div>
-<p class="lead">The answers in the next five short sections will determine whether this approach is feasible, what access is needed, and what should be included in the quotation.</p>
+<h2>The customer journey I’m proposing</h2>
+<p class="lead">The Google Business Profiles and the paid ads have different jobs. The profiles establish local presence and reputation. Search advertising captures people who are already looking for replacement windows or doors. The website then needs to turn that attention into an enquiry.</p>
+<div class="flow"><div>1. Homeowner searches Google</div><div>2. Sees local profile or relevant ad</div><div>3. Lands on focused service page</div><div>4. Calls / requests consultation</div><div>5. Estimate is tracked to a sale</div></div>
+<table class="fact-table">
+<thead><tr><th>Asset</th><th>How I would use it</th></tr></thead>
+<tbody>
+<tr><td>Google Business Profiles</td><td>Keep both only if both locations are eligible. Strengthen categories, services, photos, review collection and local information for each legitimate location.</td></tr>
+<tr><td>Existing website</td><td>Keep the main website. It already presents the company’s replacement windows, doors, testimonials, before/after work and free in-home consultation. <a class="source-link" target="_blank" rel="noopener" href="https://www.customexchangeinc.com/">View current website ↗</a></td></tr>
+<tr><td>Paid Google Search traffic</td><td>Send high-intent ad traffic to a focused landing page on the same domain instead of making every visitor work through the homepage to find the next step.</td></tr>
+<tr><td>Google Maps visibility</td><td>Link eligible locations to Google Ads through location assets. Google says these assets may appear across Search and Google Maps; Maps-only advertising is not guaranteed or available as an exclusive placement. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/google-ads/answer/16388390?hl=en">Google Maps advertising guidance ↗</a></td></tr>
+<tr><td>Measurement</td><td>Track calls and forms first, then record which became consultations, estimates and signed projects. That gives us a business result rather than a report made only of clicks.</td></tr>
+</tbody>
+</table>
+<div class="note"><strong>Why a dedicated landing page?</strong>A person searching “replacement windows Pleasanton” or “window installation San Jose” should immediately see the matching service, local relevance, actual project proof, reviews and one clear call-to-action. The normal website can still remain the main website listed on the Google Business Profiles.</div>
+<p class="lead">The remaining questions are only the information I still need to confirm. I’ve kept them in small groups so you and your husband can go through them without having to write a long response all at once.</p>
 <div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Start questions</button></div>
 </section>
 
 <section class="page" data-title="Google profiles">
 <h2>1. Google Business Profiles</h2>
-<p class="lead">These questions determine whether the two listings should remain separate, be managed together, or be corrected as duplicates.</p>
-<div class="q"><label class="question">1. Are Pleasanton and San Jose two separate physical business locations with staff based at each location?</label><p class="why">This is important because Google’s eligibility rules depend on how each location actually operates.</p><div class="options">
-<label class="option"><input required type="radio" name="01 - Separate staffed locations" value="Yes, both are separately staffed">Yes, both are separately staffed</label>
-<label class="option"><input type="radio" name="01 - Separate staffed locations" value="No, only one is separately staffed">No, only one is separately staffed</label>
-<label class="option"><input type="radio" name="01 - Separate staffed locations" value="Not sure">Not sure</label></div></div>
-<div class="q"><label class="question">2. Can customers physically visit either location during stated business hours?</label><div class="options">
-<label class="option"><input required type="radio" name="02 - Customer visits" value="Yes, both locations">Yes, both locations</label>
-<label class="option"><input type="radio" name="02 - Customer visits" value="Only one location">Only one location</label>
-<label class="option"><input type="radio" name="02 - Customer visits" value="No, work is primarily by appointment / at customer homes">No, work is primarily by appointment / at customer homes</label></div></div>
-<div class="q"><label class="question">3. Does each location have its own permanent signage, staff, phone number, or clearly separate operating setup?</label><textarea required name="03 - Separate location setup" placeholder="Please describe what is separate between the two locations."></textarea></div>
-<div class="q"><label class="question">4. When you say you would like the two Google profiles combined, which outcome do you mean?</label><div class="options">
-<label class="option"><input required type="radio" name="04 - Desired profile outcome" value="One public Google profile">One public Google profile</label>
-<label class="option"><input type="radio" name="04 - Desired profile outcome" value="Keep two public profiles but manage both from one account">Keep two public profiles, but manage both from one account</label>
-<label class="option"><input type="radio" name="04 - Desired profile outcome" value="Not sure - advise us">We are not sure and would like your recommendation</label></div></div>
-<div class="q"><label class="question">5. Do you or your husband currently have owner/manager access to both Google Business Profiles?</label><div class="options">
+<p class="lead">I understand why the two profiles were created. What I need now is the operational information Google uses to decide whether both are eligible to remain separate.</p>
+<div class="q"><label class="question">1. Could you send the second, unique Google Maps link?</label><p class="why">The two URLs in the WhatsApp message are the same link. I need one link for Custom Exchange, Inc. and one for Custom Exchange Windows so I can compare their names, addresses, categories, reviews and current setup.</p><input required type="text" name="01 - Second unique Google Maps link" placeholder="Paste the second Google Maps link here, or write 'I’ll send separately'."></div>
+<div class="q"><label class="question">2. Are the Pleasanton and San Jose locations each operated by separate Custom Exchange staff?</label><p class="why">Google specifically allows separate profiles for service-business locations when there are separate locations, separate staff and separate service areas.</p><div class="options">
+<label class="option"><input required type="radio" name="02 - Separate staff at both locations" value="Yes, separate staff operate from both">Yes, separate staff operate from both</label>
+<label class="option"><input type="radio" name="02 - Separate staff at both locations" value="Same team covers both locations">The same team covers both locations</label>
+<label class="option"><input type="radio" name="02 - Separate staff at both locations" value="Not sure">Not sure</label></div></div>
+<div class="q"><label class="question">3. Your website says both addresses are “by appointment only.” What actually happens at each address?</label><p class="why">For example: Can a customer meet a staff member there? Is there an office/showroom? Or are the addresses primarily operational bases while consultations happen in customers’ homes?</p><textarea required name="03 - How each address operates" placeholder="Please describe Pleasanton and San Jose separately."></textarea></div>
+<div class="q"><label class="question">4. Does each address have permanent Custom Exchange signage and business evidence that matches the profile name?</label><p class="why">Google may use signage and real-world branding during verification. This also helps determine whether the two different profile names are appropriate.</p><div class="options">
+<label class="option"><input required type="radio" name="04 - Signage and branding" value="Yes, both have permanent matching signage">Yes, both have permanent matching signage</label>
+<label class="option"><input type="radio" name="04 - Signage and branding" value="Only one does">Only one does</label>
+<label class="option"><input type="radio" name="04 - Signage and branding" value="Neither / not sure">Neither / not sure</label></div></div>
+<div class="q"><label class="question">5. Do you or your husband currently have owner or manager access to both Google Business Profiles?</label><div class="options">
 <label class="option"><input required type="radio" name="05 - GBP access" value="Yes, both">Yes, both</label>
 <label class="option"><input type="radio" name="05 - GBP access" value="Only one">Only one</label>
 <label class="option"><input type="radio" name="05 - GBP access" value="No / not sure">No / not sure</label></div></div>
+<div class="note"><strong>What I will decide from these answers</strong>If both locations are genuinely eligible, my preference would be to keep both profiles, manage them centrally, make the naming consistent with the real business branding, and build reviews for each legitimate location. If they are not separately eligible, I would recommend correcting the structure rather than risking a suspension by forcing two city profiles.</div>
 <div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Continue</button></div>
 </section>
 
 <section class="page" data-title="Yelp & reviews">
 <h2>2. Yelp & customer reviews</h2>
-<p class="lead">I want to understand what Yelp has actually produced before recommending that any paid service is stopped.</p>
+<p class="lead">I understand that your husband feels Yelp has been taking advertising money without producing sales. Yelp does sell sponsored placement, so spend can affect paid visibility. Yelp separately states that advertising status does not determine whether reviews are recommended. I therefore want to compare the actual spend against actual leads and customers before deciding how quickly to reduce paid Yelp advertising.</p>
+<table class="fact-table"><tbody><tr><td>Paid visibility</td><td>Yelp says sponsored results are paid placements and may appear before organic results. <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/How-does-Yelp-determine-its-search-results?l=en_US">Yelp source ↗</a></td></tr><tr><td>Review filtering</td><td>Yelp says its automated recommendation software treats advertisers and non-advertisers the same. <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/Do-businesses-that-advertise-on-Yelp-get-special-treatment-by-the-recommendation-software?l=en_GB">Yelp source ↗</a></td></tr></tbody></table>
 <div class="q"><label class="question">6. Approximately how much are you currently spending on Yelp advertising each month?</label><input required type="text" name="06 - Yelp monthly spend" placeholder="Example: $800 per month, or Not sure"></div>
 <div class="q"><label class="question">7. Approximately how long has the paid Yelp advertising been running?</label><input required type="text" name="07 - Yelp duration" placeholder="Example: 8 months"></div>
 <div class="q"><label class="question">8. Does Yelp show any calls, messages, quote requests or leads? If so, do you know how many became actual customers?</label><textarea required name="08 - Yelp leads and sales" placeholder="Even an approximate answer is helpful."></textarea></div>
@@ -100,7 +128,7 @@ input[type=text],input[type=email],input[type=number],textarea,select{width:100%
 <label class="option"><input required type="radio" name="09 - Yelp cancellation terms" value="Yes">Yes</label>
 <label class="option"><input type="radio" name="09 - Yelp cancellation terms" value="No">No</label>
 <label class="option"><input type="radio" name="09 - Yelp cancellation terms" value="Not sure">Not sure</label></div></div>
-<div class="q"><label class="question">10. Do you still have legitimate contact details for a meaningful number of past customers who could be invited to leave a fresh Google review?</label><p class="why">We would not copy Yelp reviews or ask only happy customers. We can simply invite genuine customers to share an honest Google review.</p><div class="options">
+<div class="q"><label class="question">10. Do you still have legitimate contact details for a meaningful number of past customers who could be invited to leave a fresh Google review?</label><p class="why">Yes, past customers can be invited to leave a separate Google review if you have a legitimate way to contact them. We would not copy their Yelp review, offer an incentive, or only contact customers we expect to leave positive feedback. Google allows businesses to share a review link or QR code with customers. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3474122?hl=en">Google review-request guidance ↗</a></p><div class="options">
 <label class="option"><input required type="radio" name="10 - Past customer contacts" value="Yes, most customers">Yes, most customers</label>
 <label class="option"><input type="radio" name="10 - Past customer contacts" value="Some customers">Some customers</label>
 <label class="option"><input type="radio" name="10 - Past customer contacts" value="No">No</label>
@@ -206,8 +234,8 @@ async function makePdf(){
  add('Prepared for Isabelle and her husband | Completed questionnaire',10,false,16);
  add('OBSERVATIONS & PROPOSED DIRECTION',11,true,8);
  add('Website: The current website is a usable starting point. A full rebuild does not need to be part of the initial advertising project unless later required.',10,false,8);
- add('Google Business Profiles: The Pleasanton and San Jose profiles should not be merged or deleted until location eligibility and ownership are confirmed.',10,false,8);
- add('Yelp reviews: Existing Yelp reviews cannot be transferred into Google. Genuine former customers can be invited to leave new, honest Google reviews without incentives or review gating.',10,false,8);
+ add('Google Business Profiles: Isabelle has explained that there are two city-based profiles. Google allows separate service-business profiles when locations have separate staff and service areas, so I would verify eligibility before merging or deleting anything.',10,false,8);
+ add('Yelp and reviews: Yelp sells sponsored visibility, while Yelp states its review recommendation software treats advertisers and non-advertisers the same. Existing Yelp reviews do not transfer to Google, but genuine past customers may be neutrally invited to leave a new Google review.',10,false,8);
  add('Advertising: The proposed system is Google search → relevant ad → focused landing page → call or consultation request → estimate → project, with tracking at each meaningful stage.',10,false,14);
  add('RESPONSES',11,true,10);
  const obj=answers();for(const [k,v] of Object.entries(obj)){if(k==='email'||k==='Respondent name')continue;add(k.replace(/^\d+\w?\s*-\s*/,''),10,true,4);add(v||'No response',10,false,9)}
