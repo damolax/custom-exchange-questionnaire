@@ -100,6 +100,7 @@ a{color:inherit}
 .topbar-left{min-width:0}
 .topbar-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet);font-weight:800}
 .topbar-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.test-jump{border:1px solid var(--line-strong);background:#fff;color:var(--brand-dark);border-radius:11px;padding:8px 11px;font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}.test-jump:hover{background:var(--brand-soft)}
 .progress-wrap{width:210px;max-width:38vw}
 .progress-meta{font-size:11px;color:var(--quiet);font-weight:750;text-align:right;margin-bottom:6px}
 .progress{height:5px;background:#edf1ee;border-radius:99px;overflow:hidden}
@@ -238,6 +239,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
     <div class="topbar-label mobile-step">Private planning review</div>
     <div class="topbar-title" id="topTitle">Hi Isabelle, let’s start with what you already told me.</div>
   </div>
+  <button type="button" class="test-jump" id="testJump">Test PDF: jump to submit</button>
   <div class="progress-wrap">
     <div class="progress-meta" id="progressMeta">1 of 8</div>
     <div class="progress"><span id="progressBar"></span></div>
@@ -572,6 +574,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
 
 <section class="page" data-title="Isabelle, that’s everything I need for the quote.">
   <div class="eyebrow">Final check</div>
+  <div class="callout"><strong>Temporary test mode:</strong> unanswered questions are allowed right now so the PDF/email delivery can be tested. Required-answer checks will be restored after the test is confirmed.</div>
   <h2 class="section-title">Isabelle, that’s everything I need from you.</h2>
   <p class="section-lead">Thank you for going through it. I’ll use these answers to decide the safest profile structure, the review plan, what the website needs for ad traffic, and the advertising scope I should actually quote you for.</p>
 
@@ -583,11 +586,11 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
   <div class="question-stack">
     <div class="q">
       <div class="q-top"><span class="q-no">A</span><h3>Your name</h3></div>
-      <input required type="text" name="Respondent name" value="Isabelle">
+      <input type="text" name="Respondent name" value="Isabelle">
     </div>
     <div class="q">
       <div class="q-top"><span class="q-no">B</span><h3>Your email</h3></div>
-      <input required type="email" name="email" placeholder="Your email address">
+      <input type="email" name="email" placeholder="Your email address (optional during test)">
     </div>
   </div>
 
@@ -620,6 +623,7 @@ const progressBar=document.getElementById('progressBar');
 const progressMeta=document.getElementById('progressMeta');
 const topTitle=document.getElementById('topTitle');
 let current=0;
+const TEST_MODE=true;
 
 function updateUI(){
   pages.forEach((p,i)=>p.classList.toggle('active',i===current));
@@ -637,6 +641,7 @@ function updateUI(){
 }
 
 function validateCurrent(){
+  if(TEST_MODE) return true;
   const required=[...pages[current].querySelectorAll('[required]')];
   const checkedGroups=new Set();
   for(const el of required){
@@ -664,6 +669,10 @@ document.querySelectorAll('.next').forEach(btn=>btn.addEventListener('click',()=
 document.querySelectorAll('.back').forEach(btn=>btn.addEventListener('click',()=>{
   if(current>0){current--;updateUI();}
 }));
+document.getElementById('testJump').addEventListener('click',()=>{
+  current=pages.length-1;
+  updateUI();
+});
 
 function getAnswers(){
   const fd=new FormData(form), out={};
