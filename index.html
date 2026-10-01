@@ -99,7 +99,6 @@ a{color:inherit}
 .topbar-left{min-width:0}
 .topbar-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet);font-weight:800}
 .topbar-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.test-jump{border:1px solid var(--line-strong);background:#fff;color:var(--brand-dark);border-radius:11px;padding:8px 11px;font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}.test-jump:hover{background:var(--brand-soft)}
 .save-state{font-size:11px;font-weight:800;color:var(--quiet);white-space:nowrap;display:flex;align-items:center;gap:6px}.save-state:before{content:"";width:7px;height:7px;border-radius:50%;background:#aab6b2}.save-state.saved{color:var(--success)}.save-state.saved:before{background:var(--success)}
 .progress-wrap{width:210px;max-width:38vw}
 .progress-meta{font-size:11px;color:var(--quiet);font-weight:750;text-align:right;margin-bottom:6px}
@@ -243,7 +242,6 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
     <div class="topbar-title" id="topTitle">Hi Isabelle, let’s start with what you already told me.</div>
   </div>
   <div class="save-state" id="saveState">Not saved yet</div>
-  <button type="button" class="test-jump" id="testJump">Test PDF: jump to submit</button>
   <div class="progress-wrap">
     <div class="progress-meta" id="progressMeta">1 of 8</div>
     <div class="progress"><span id="progressBar"></span></div>
@@ -251,7 +249,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
 </header>
 
 <div class="stage">
-<form id="discoveryForm" action="https://formsubmit.co/olamocreate@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
+<form id="discoveryForm" action="https://formsubmit.co/olamocreate@gmail.com" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="_subject" value="Custom Exchange Windows - Isabelle completed planning review">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_next" value="https://damolax.github.io/custom-exchange-questionnaire/thanks.html">
@@ -578,23 +576,22 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
 
 <section class="page" data-title="Isabelle, that’s everything I need for the quote.">
   <div class="eyebrow">Final check</div>
-  <div class="callout"><strong>Temporary test mode:</strong> unanswered questions are allowed right now so the PDF/email delivery can be tested. Required-answer checks will be restored after the test is confirmed.</div>
   <h2 class="section-title">Isabelle, that’s everything I need from you.</h2>
   <p class="section-lead">Thank you for going through it. I’ll use these answers to decide the safest profile structure, the review plan, what the website needs for ad traffic, and the advertising scope I should actually quote you for.</p>
 
   <div class="submit-box">
     <h3>Your details</h3>
-    <p>Add the email you’d like attached to this response. Your answers can be submitted directly to me, and you can also generate a PDF copy. Because browser-generated attachments are not reliably delivered through the form service, the PDF has its own email/share button below.</p>
+    <p>Add the email you’d like attached to this response. When you’re happy with your answers, submit the completed review directly to me. You can also create a PDF copy for your records or email the PDF separately if you prefer.</p>
   </div>
 
   <div class="question-stack">
     <div class="q">
       <div class="q-top"><span class="q-no">A</span><h3>Your name</h3></div>
-      <input type="text" name="Respondent name" value="Isabelle">
+      <input required type="text" name="Respondent name" value="Isabelle">
     </div>
     <div class="q">
       <div class="q-top"><span class="q-no">B</span><h3>Your email</h3></div>
-      <input type="email" name="email" placeholder="Your email address (optional during test)">
+      <input required type="email" name="email" placeholder="Your email address">
     </div>
   </div>
 
@@ -608,8 +605,8 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
   <div class="signature">Olalekan</div>
 
   <div class="delivery-actions">
-    <button id="sendDirectBtn" type="button" class="btn primary">Submit Response to Olamo</button>
-    <button id="emailPdfBtn" type="button" class="btn outline">Email PDF to Olamo</button>
+    <button id="sendDirectBtn" type="button" class="btn primary">Submit completed review</button>
+    <button id="emailPdfBtn" type="button" class="btn outline">Email PDF copy</button>
     <button id="downloadPdfBtn" type="button" class="btn outline">Download PDF</button>
   </div>
   <div id="deliveryStatus" class="delivery-status"></div>
@@ -633,7 +630,7 @@ const progressBar=document.getElementById('progressBar');
 const progressMeta=document.getElementById('progressMeta');
 const topTitle=document.getElementById('topTitle');
 let current=0;
-const TEST_MODE=true;
+const TEST_MODE=false;
 
 function updateUI(){
   pages.forEach((p,i)=>p.classList.toggle('active',i===current));
@@ -679,11 +676,6 @@ document.querySelectorAll('.next').forEach(btn=>btn.addEventListener('click',()=
 document.querySelectorAll('.back').forEach(btn=>btn.addEventListener('click',()=>{
   if(current>0){current--;saveDraft();updateUI();}
 }));
-document.getElementById('testJump').addEventListener('click',()=>{
-  current=pages.length-1;
-  saveDraft();
-  updateUI();
-});
 
 function getAnswers(){
   const fd=new FormData(form), out={};
@@ -1080,6 +1072,42 @@ async function makePdf(){
   return doc.output('blob');
 }
 
+function validateAllRequiredFields(){
+  const required=[...form.querySelectorAll('[required]')];
+  const checkedRadioNames=new Set();
+
+  for(const el of required){
+    if(el.type==='radio'){
+      if(checkedRadioNames.has(el.name)) continue;
+      checkedRadioNames.add(el.name);
+      const group=[...form.querySelectorAll('input[type="radio"][name="'+CSS.escape(el.name)+'"]')];
+      if(!group.some(x=>x.checked)){
+        const page=el.closest('.page');
+        const idx=pages.indexOf(page);
+        if(idx>=0){current=idx;updateUI();}
+        setTimeout(()=>{el.focus();el.reportValidity();},80);
+        return false;
+      }
+    }else if(el.type==='checkbox'){
+      // Checkboxes are optional unless a specific checkbox itself is marked required.
+      if(!el.checked){
+        const page=el.closest('.page');
+        const idx=pages.indexOf(page);
+        if(idx>=0){current=idx;updateUI();}
+        setTimeout(()=>{el.focus();el.reportValidity();},80);
+        return false;
+      }
+    }else if(!el.checkValidity()){
+      const page=el.closest('.page');
+      const idx=pages.indexOf(page);
+      if(idx>=0){current=idx;updateUI();}
+      setTimeout(()=>{el.focus();el.reportValidity();},80);
+      return false;
+    }
+  }
+  return true;
+}
+
 const deliveryStatus=document.getElementById('deliveryStatus');
 const sendDirectBtn=document.getElementById('sendDirectBtn');
 const downloadPdfBtn=document.getElementById('downloadPdfBtn');
@@ -1108,6 +1136,7 @@ function downloadPdfFile(file){
 }
 
 downloadPdfBtn.addEventListener('click',async()=>{
+  if(!validateAllRequiredFields()) return;
   const original=downloadPdfBtn.textContent;
   downloadPdfBtn.disabled=true;
   downloadPdfBtn.textContent='Creating PDF...';
@@ -1125,6 +1154,7 @@ downloadPdfBtn.addEventListener('click',async()=>{
 });
 
 emailPdfBtn.addEventListener('click',async()=>{
+  if(!validateAllRequiredFields()) return;
   const original=emailPdfBtn.textContent;
   emailPdfBtn.disabled=true;
   emailPdfBtn.textContent='Preparing PDF...';
@@ -1163,10 +1193,11 @@ emailPdfBtn.addEventListener('click',async()=>{
 });
 
 sendDirectBtn.addEventListener('click',()=>{
+  if(!validateAllRequiredFields()) return;
   const original=sendDirectBtn.textContent;
   sendDirectBtn.disabled=true;
   sendDirectBtn.textContent='Submitting response...';
-  setDeliveryStatus('Sending your questionnaire answers to Olamo...','warn');
+  setDeliveryStatus('Sending your completed review...','warn');
   saveDraft();
 
   // The response email is intentionally text/form data only.
@@ -1188,9 +1219,6 @@ sendDirectBtn.addEventListener('click',()=>{
 form.addEventListener('submit',e=>e.preventDefault());
 
 loadDraft();
-if(TEST_MODE){
-  form.querySelectorAll('[required]').forEach(el=>el.removeAttribute('required'));
-}
 updateUI();
 </script>
 </body>
