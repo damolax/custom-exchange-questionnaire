@@ -2,260 +2,972 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Custom Exchange Windows | Advertising Discovery</title>
-<meta name="description" content="Google visibility and lead generation discovery questionnaire for Custom Exchange Windows.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Custom Exchange Windows | Planning Review for Isabelle</title>
+<meta name="description" content="A private Google visibility and advertising planning review prepared for Isabelle and Custom Exchange Windows.">
+<meta name="theme-color" content="#102f34">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <style>
-:root{--ink:#16232a;--muted:#607079;--line:#dde5e8;--paper:#fff;--soft:#f5f8f9;--accent:#1f5b68;--accent2:#173f49;--ok:#2f6b57}
-*{box-sizing:border-box}body{margin:0;background:#edf2f3;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
-.shell{max-width:900px;margin:0 auto;padding:36px 18px 64px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 36px rgba(20,45,54,.08);overflow:hidden}
-.hero{padding:48px 48px 36px;background:linear-gradient(135deg,#173f49,#245f6b);color:#fff}.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;opacity:.8}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:12px 0 14px}.hero p{max-width:680px;margin:0;color:#e5f0f2;font-size:17px}
-.progress-wrap{padding:18px 48px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}.progress-row{display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:13px;color:var(--muted);margin-bottom:9px}.bar{height:7px;background:#e8eef0;border-radius:99px;overflow:hidden}.bar>span{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
-.page{display:none;padding:42px 48px 48px}.page.active{display:block}.page h2{font-size:27px;line-height:1.25;margin:0 0 14px}.lead{color:var(--muted);font-size:16px;margin-bottom:28px}
-.note{border:1px solid #d6e2e5;background:#f7fafb;border-radius:14px;padding:18px 20px;margin:20px 0}.note strong{display:block;margin-bottom:5px}
-.findings{display:grid;gap:14px}.finding{padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#fff}.finding h3{font-size:16px;margin:0 0 6px}.finding p{margin:0;color:var(--muted)}
-.fact-table{width:100%;border-collapse:separate;border-spacing:0;margin:22px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14px}.fact-table th,.fact-table td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.fact-table tr:last-child td{border-bottom:0}.fact-table th{background:var(--soft);font-size:13px}.fact-table td:first-child{font-weight:800;width:28%}.source-link{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;color:var(--accent);text-decoration:none}.source-link:hover{text-decoration:underline}.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;padding:4px 7px;border-radius:999px;background:#eaf2f4;color:var(--accent2);margin-bottom:7px}
-.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:24px 0}.flow div{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 10px;text-align:center;font-size:13px;font-weight:700}
-.q{padding:24px 0;border-top:1px solid var(--line)}.q:first-of-type{border-top:0}.q label.question{display:block;font-weight:800;font-size:16px;margin-bottom:7px}.why{font-size:13px;color:var(--muted);margin:0 0 12px}
-input[type=text],input[type=email],input[type=number],textarea,select{width:100%;border:1px solid #cbd7db;border-radius:10px;padding:12px 13px;font:inherit;color:var(--ink);background:#fff;outline:none}textarea{min-height:105px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(31,91,104,.12)}
-.options{display:grid;gap:9px}.option{display:flex;gap:10px;align-items:flex-start;border:1px solid #dce5e8;border-radius:10px;padding:11px 12px;cursor:pointer}.option:hover{background:#f7fafb}.option input{margin-top:4px}
-.actions{display:flex;justify-content:space-between;gap:12px;margin-top:30px}.btn{border:0;border-radius:11px;padding:12px 18px;font-weight:800;font-size:15px;cursor:pointer}.btn.primary{background:var(--accent);color:#fff}.btn.secondary{background:#edf2f3;color:var(--ink)}.btn:disabled{opacity:.55;cursor:not-allowed}
-.small{font-size:12px;color:var(--muted)}.review{background:var(--soft);border-radius:14px;padding:18px;margin:18px 0}.review h3{margin:0 0 10px;font-size:16px}.review p{margin:5px 0;font-size:14px}
-.success{display:none;padding:48px;text-align:center}.success.active{display:block}.success h2{font-size:30px}.check{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#e8f4ef;color:var(--ok);font-size:30px;margin:0 auto 16px}
-@media(max-width:700px){.hero,.page,.success{padding:30px 22px}.progress-wrap{padding:14px 22px}.flow{grid-template-columns:1fr}.actions{flex-direction:column-reverse}.btn{width:100%}}
+:root{
+  --ink:#142326;
+  --muted:#66777a;
+  --quiet:#8a989a;
+  --paper:#ffffff;
+  --canvas:#f4f6f3;
+  --line:#e0e7e3;
+  --line-strong:#ced9d3;
+  --brand:#184d53;
+  --brand-dark:#102f34;
+  --brand-soft:#e9f1ef;
+  --sage:#dce9e2;
+  --sand:#f5efe5;
+  --gold:#a77b38;
+  --success:#2d6852;
+  --shadow:0 22px 60px rgba(18,48,52,.10);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 0%,rgba(220,233,226,.9),transparent 30rem),
+    radial-gradient(circle at 100% 22%,rgba(245,239,229,.8),transparent 28rem),
+    var(--canvas);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,textarea,select{font:inherit}
+a{color:inherit}
+.site-shell{max-width:1180px;margin:0 auto;padding:24px}
+.app{
+  min-height:calc(100vh - 48px);
+  display:grid;
+  grid-template-columns:340px minmax(0,1fr);
+  border:1px solid rgba(206,217,211,.9);
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(18px);
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.rail{
+  position:relative;
+  padding:36px 30px;
+  color:#f4fbf8;
+  background:
+    linear-gradient(160deg,rgba(255,255,255,.05),transparent 35%),
+    linear-gradient(155deg,var(--brand-dark),#174b50 72%,#1d5b60);
+  overflow:hidden;
+}
+.rail:after{
+  content:"";
+  position:absolute;
+  width:260px;height:260px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  right:-135px;bottom:-90px;
+  box-shadow:0 0 0 48px rgba(255,255,255,.025),0 0 0 96px rgba(255,255,255,.018);
+}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:58px;position:relative;z-index:1}
+.brandmark{width:42px;height:42px;border-radius:14px;background:#f6f0e5;color:var(--brand-dark);display:grid;place-items:center;font-weight:900;letter-spacing:-.04em}
+.brandtext{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.rail-kicker{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#bcd3ce;margin-bottom:12px}
+.rail h1{font-family:Georgia,"Times New Roman",serif;font-size:38px;line-height:1.05;letter-spacing:-.025em;margin:0 0 16px;max-width:270px}
+.rail-copy{font-size:14px;color:#c7d8d4;max-width:270px;margin:0 0 34px}
+.step-list{display:grid;gap:9px;position:relative;z-index:1}
+.step-chip{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 12px;border-radius:12px;
+  color:#b8ceca;font-size:13px;font-weight:650;
+  transition:.2s ease;
+}
+.step-chip .dot{width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:grid;place-items:center;font-size:11px}
+.step-chip.active{background:rgba(255,255,255,.09);color:#fff}
+.step-chip.active .dot{background:#f6f0e5;color:var(--brand-dark);border-color:#f6f0e5}
+.step-chip.done{color:#dfece8}
+.step-chip.done .dot{background:rgba(255,255,255,.15);border-color:transparent}
+.rail-foot{position:absolute;left:30px;right:30px;bottom:28px;font-size:11px;color:#9eb9b4;z-index:1}
+.main{min-width:0;background:rgba(255,255,255,.94)}
+.topbar{
+  min-height:78px;padding:20px 34px;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  position:sticky;top:0;background:rgba(255,255,255,.90);backdrop-filter:blur(16px);z-index:20;
+}
+.topbar-left{min-width:0}
+.topbar-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet);font-weight:800}
+.topbar-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progress-wrap{width:210px;max-width:38vw}
+.progress-meta{font-size:11px;color:var(--quiet);font-weight:750;text-align:right;margin-bottom:6px}
+.progress{height:5px;background:#edf1ee;border-radius:99px;overflow:hidden}
+.progress span{display:block;height:100%;width:12.5%;background:linear-gradient(90deg,var(--brand),#4a8179);border-radius:99px;transition:width .35s ease}
+.stage{padding:52px 54px 42px;max-width:820px;margin:0 auto}
+.page{display:none;animation:fade .26s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:850;color:var(--brand);margin-bottom:16px}
+.eyebrow:before{content:"";width:22px;height:1px;background:var(--brand)}
+.hero-title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,5.2vw,62px);line-height:1.02;letter-spacing:-.035em;margin:0 0 20px;max-width:710px}
+.hero-lead{font-size:18px;color:#516366;max-width:680px;margin:0 0 30px}
+.personal-note{
+  display:grid;grid-template-columns:44px 1fr;gap:14px;
+  padding:18px 20px;border:1px solid #dce7e2;background:#f8fbf9;border-radius:18px;margin:24px 0;
+}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:900}
+.personal-note strong{display:block;margin-bottom:4px}.personal-note p{margin:0;color:#5c6f71;font-size:14px}
+.triad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}
+.triad-card{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}
+.triad-card .mini{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:850;color:var(--quiet);margin-bottom:9px}
+.triad-card h3{font-size:15px;margin:0 0 7px}.triad-card p{font-size:13px;color:var(--muted);margin:0}
+.section-title{font-family:Georgia,"Times New Roman",serif;font-size:38px;line-height:1.1;letter-spacing:-.025em;margin:0 0 12px}
+.section-lead{font-size:16px;color:var(--muted);max-width:690px;margin:0 0 28px}
+.story-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff;margin:22px 0 30px}
+.story-table th{padding:12px 16px;background:#f7f9f7;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--quiet)}
+.story-table td{padding:17px 16px;border-top:1px solid var(--line);font-size:14px;vertical-align:top}
+.story-table td:first-child{width:29%;font-weight:850}
+.source{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:var(--brand);font-size:12px;font-weight:800;text-decoration:none}
+.source:hover{text-decoration:underline}
+.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 30px}
+.fact{
+  border:1px solid var(--line);border-radius:18px;padding:19px;background:#fff;min-height:155px;
+  box-shadow:0 7px 22px rgba(25,62,66,.035)
+}
+.fact-num{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.fact h3{font-size:16px;margin:0 0 8px}.fact p{font-size:13px;color:var(--muted);margin:0}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:22px 0 28px}
+.flow-item{position:relative;border:1px solid var(--line);border-radius:16px;padding:16px 12px;background:#fff;text-align:center}
+.flow-item b{display:block;font-size:12px;margin-bottom:5px}.flow-item span{font-size:11px;color:var(--quiet)}
+.flow-item:not(:last-child):after{content:"›";position:absolute;right:-8px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:900;z-index:2}
+.callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 16px 16px 0;padding:17px 18px;margin:24px 0;color:#3d5558;font-size:14px}
+.callout strong{color:var(--ink)}
+.question-stack{display:grid;gap:14px}
+.q{
+  border:1px solid var(--line);border-radius:20px;background:#fff;padding:22px;
+  box-shadow:0 8px 24px rgba(25,62,66,.035)
+}
+.q-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:13px}
+.q-no{flex:0 0 30px;width:30px;height:30px;border-radius:10px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:900;font-size:12px}
+.q h3{font-size:16px;line-height:1.4;margin:2px 0 0}
+.help{font-size:12.5px;color:var(--muted);margin:0 0 12px 42px}
+input[type=text],input[type=email],textarea,select{
+  width:100%;border:1px solid var(--line-strong);background:#fbfcfb;border-radius:13px;
+  padding:13px 14px;color:var(--ink);outline:none;transition:.18s ease
+}
+textarea{min-height:108px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4px rgba(62,116,106,.10);background:#fff}
+.options{display:grid;gap:8px}
+.option{
+  display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--line);
+  border-radius:13px;background:#fbfcfb;cursor:pointer;font-size:13.5px;transition:.15s ease
+}
+.option:hover{border-color:#b8cbc5;background:#f7faf8}.option input{margin-top:3px;accent-color:var(--brand)}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}
+.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:850;cursor:pointer;transition:.18s ease}
+.btn.primary{background:var(--brand-dark);color:#fff;box-shadow:0 8px 22px rgba(16,47,52,.18)}
+.btn.primary:hover{transform:translateY(-1px);background:#0c282c}
+.btn.secondary{background:#eff3f0;color:var(--ink)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.micro{font-size:11px;color:var(--quiet);max-width:420px}
+.review-block{border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:18px}
+.review-row{display:grid;grid-template-columns:230px 1fr;gap:18px;padding:14px 16px;border-top:1px solid var(--line);font-size:13px}
+.review-row:first-child{border-top:0}.review-row b{font-size:12px}.review-row span{color:var(--muted);white-space:pre-wrap}
+.submit-box{padding:20px;border:1px solid #d8e4de;background:#f8fbf9;border-radius:18px;margin:24px 0}
+.submit-box h3{margin:0 0 8px;font-size:16px}.submit-box p{margin:0;color:var(--muted);font-size:13px}
+.signature{margin-top:28px;font-family:Georgia,"Times New Roman",serif;font-size:24px}
+.mobile-step{display:none}
+@media(max-width:920px){
+  .site-shell{padding:0}
+  .app{display:block;min-height:100vh;border:0;border-radius:0}
+  .rail{display:none}
+  .topbar{padding:16px 20px;min-height:70px}
+  .stage{padding:34px 20px 34px}
+  .mobile-step{display:inline-flex}
+  .fact-grid{grid-template-columns:1fr}
+  .triad{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .progress-wrap{width:124px;max-width:42vw}
+  .topbar-title{max-width:180px}
+  .hero-title{font-size:40px}
+  .section-title{font-size:31px}
+  .flow{grid-template-columns:1fr}
+  .flow-item:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-12px;transform:translateX(-50%)}
+  .story-table,.story-table tbody,.story-table tr,.story-table td{display:block;width:100%}
+  .story-table thead{display:none}
+  .story-table td{border-top:0;padding-bottom:8px}
+  .story-table td:first-child{width:100%;padding-bottom:2px;color:var(--brand)}
+  .story-table tr{display:block;border-top:1px solid var(--line);padding:9px 0}
+  .story-table tr:first-child{border-top:0}
+  .review-row{grid-template-columns:1fr;gap:5px}
+  .actions{align-items:stretch;flex-direction:column-reverse}
+  .actions .btn{width:100%}
+  .micro{text-align:center}
+}
 </style>
 </head>
 <body>
-<div class="shell">
-<div class="card">
-<header class="hero">
-<div class="eyebrow">Custom Exchange Windows</div>
-<h1>Google Visibility & Lead Generation Review</h1>
-<p>Prepared for Isabelle and her husband. This short review explains what I’ve observed, the direction I’m considering, and the information I need before preparing an accurate quotation.</p>
+<div class="site-shell">
+<div class="app">
+<aside class="rail">
+  <div class="brandline">
+    <div class="brandmark">CE</div>
+    <div class="brandtext">Custom Exchange<br>Planning Review</div>
+  </div>
+  <div class="rail-kicker">Prepared for Isabelle</div>
+  <h1>A clearer path from visibility to real projects.</h1>
+  <p class="rail-copy">I’ve taken what you already shared, checked the relevant platforms, and turned the remaining questions into one focused review.</p>
+  <div class="step-list" id="stepList">
+    <div class="step-chip active"><span class="dot">1</span><span>Start here</span></div>
+    <div class="step-chip"><span class="dot">2</span><span>What I found</span></div>
+    <div class="step-chip"><span class="dot">3</span><span>Google profiles</span></div>
+    <div class="step-chip"><span class="dot">4</span><span>Yelp & reviews</span></div>
+    <div class="step-chip"><span class="dot">5</span><span>Website & leads</span></div>
+    <div class="step-chip"><span class="dot">6</span><span>Services & capacity</span></div>
+    <div class="step-chip"><span class="dot">7</span><span>Ads & budget</span></div>
+    <div class="step-chip"><span class="dot">8</span><span>Review & submit</span></div>
+  </div>
+  <div class="rail-foot">Private planning questionnaire • No advertising spend is authorized by completing this review.</div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-label mobile-step">Private planning review</div>
+    <div class="topbar-title" id="topTitle">Hi Isabelle, let’s start with what you already told me.</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-meta" id="progressMeta">1 of 8</div>
+    <div class="progress"><span id="progressBar"></span></div>
+  </div>
 </header>
 
-<div class="progress-wrap" id="progressWrap">
-<div class="progress-row"><span id="stepText">Introduction</span><span id="stepCount">1 of 8</span></div>
-<div class="bar"><span id="progressBar"></span></div>
-</div>
-
+<div class="stage">
 <form id="discoveryForm" action="https://formsubmit.co/olamocreate@gmail.com" method="POST" enctype="multipart/form-data">
-<input type="hidden" name="_subject" value="Custom Exchange Windows - Isabelle completed advertising questionnaire">
+<input type="hidden" name="_subject" value="Custom Exchange Windows - Isabelle completed planning review">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_next" value="https://damolax.github.io/custom-exchange-questionnaire/thanks.html">
+<input type="hidden" name="_autoresponse" value="Thank you, Isabelle. Your completed planning review has been received. Olalekan will review your answers and use them to prepare the recommended scope and quotation.">
+<input type="hidden" name="_url" value="https://damolax.github.io/custom-exchange-questionnaire/">
+<input type="hidden" name="Form version" value="Premium discovery v2 - October 2026">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 <input type="file" id="pdfAttachment" name="attachment" accept="application/pdf" style="display:none">
 
-<section class="page active" data-title="What you already told me">
-<h2>Hi Isabelle, I’ve gone through what you already sent.</h2>
-<p class="lead">I don’t want to ask you and your husband to repeat information you’ve already given me. I’ve separated the points you already explained to me from the few items I still need to confirm before I can recommend the safest Google Business Profile setup and quote the advertising work accurately.</p>
+<section class="page active" data-title="Hi Isabelle, let’s start with what you already told me.">
+  <div class="eyebrow">A note directly to you</div>
+  <h2 class="hero-title">Hi Isabelle, I went through everything you sent me.</h2>
+  <p class="hero-lead">I don’t want you or your husband repeating yourselves. So I’ve done this a little differently: first I’ll show you what I already understood from your messages, then what I checked independently, and finally the few things I still need before I can quote this properly.</p>
 
-<table class="fact-table">
-<thead><tr><th>What you already told me</th><th>My reading of it</th></tr></thead>
-<tbody>
-<tr><td>Two Google profiles</td><td>You explained that your husband currently has two Google Maps profiles, one under <strong>Custom Exchange, Inc.</strong> and another under <strong>Custom Exchange Windows</strong>, because the business is targeting two different cities.</td></tr>
-<tr><td>Two service areas</td><td>Your website publicly lists a Pleasanton-area address and a San Jose-area address, both described as <strong>by appointment only</strong>, with separate groups of cities served from each area. <a class="source-link" target="_blank" rel="noopener" href="https://www.customexchangeinc.com/contact/">View the company contact page ↗</a></td></tr>
-<tr><td>Yelp</td><td>You explained that most of the business’s reviews are currently on Yelp, but your husband wants to move away from Yelp and make Google a stronger review and customer-acquisition channel.</td></tr>
-<tr><td>Main objective</td><td>You explained that your husband wants both Google locations to become strong review destinations, and that he also wants to resume Google advertising in a way that can be connected to real enquiries and sales.</td></tr>
-</tbody>
-</table>
+  <div class="personal-note">
+    <div class="avatar">O</div>
+    <div><strong>Why I’m asking you to go through this</strong><p>I want the eventual recommendation to be specific to your husband’s business, not a generic “run Google Ads” package. If you don’t know an answer, “not sure” is completely fine.</p></div>
+  </div>
 
-<div class="note"><strong>One detail I noticed immediately</strong>The two Google Maps URLs forwarded in the WhatsApp message are identical. I therefore only have one unique Maps link from that message. I’ll ask for the second profile link below so I can compare the two listings directly.</div>
+  <div class="triad">
+    <div class="triad-card"><div class="mini">Already heard</div><h3>Your context</h3><p>Two Google Maps profiles, strong Yelp review history, and a desire to shift toward Google.</p></div>
+    <div class="triad-card"><div class="mini">Already checked</div><h3>The public setup</h3><p>The current website, the business positioning, Google’s rules, and Yelp’s own explanation of paid visibility.</p></div>
+    <div class="triad-card"><div class="mini">Still needed</div><h3>The missing pieces</h3><p>Location eligibility, account access, past ad results, lead handling, priorities, budget and capacity.</p></div>
+  </div>
 
-<h2 style="margin-top:34px">What the platforms officially say</h2>
-<table class="fact-table">
-<thead><tr><th>Topic</th><th>Relevant rule / fact</th></tr></thead>
-<tbody>
-<tr><td>Two Google locations</td><td>Google says a service business can have a profile for each location when the locations have <strong>separate staff and separate service areas</strong>. If there is no true storefront and the business travels to customers, Google otherwise limits a service-area business to one profile. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3038177?hl=en">Google Business Profile guidelines ↗</a></td></tr>
-<tr><td>Business names</td><td>Google expects a business name to reflect the name used consistently in the real world, and multiple locations of the same brand should generally use consistent naming. That means “Custom Exchange, Inc.” versus “Custom Exchange Windows” needs to match real-world branding, not just be chosen for city targeting. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3038177?hl=en">Google naming guidelines ↗</a></td></tr>
-<tr><td>Google reviews</td><td>Google has procedures for moving reviews in some duplicate or relocation situations, but reviews from another platform such as Yelp do not become native Google reviews. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3098204?hl=en">Google review-transfer guidance ↗</a></td></tr>
-<tr><td>Yelp visibility</td><td>Yelp confirms that paid advertisers can appear in <strong>Sponsored Results</strong>, which can increase paid visibility. Separately, Yelp states that its review recommendation software treats advertisers and non-advertisers the same. I therefore want to judge the Yelp spend by leads and sales rather than assume the review filter itself changes because of budget. <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/How-does-Yelp-determine-its-search-results?l=en_US">Yelp search-results explanation ↗</a> <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/Do-businesses-that-advertise-on-Yelp-get-special-treatment-by-the-recommendation-software?l=en_GB">Yelp review-system explanation ↗</a></td></tr>
-</tbody>
-</table>
+  <table class="story-table">
+    <thead><tr><th>What you told me</th><th>What I took from it</th></tr></thead>
+    <tbody>
+      <tr><td>Two Google profiles</td><td>You explained that your husband has one Google Maps profile under <strong>Custom Exchange, Inc.</strong> and another under <strong>Custom Exchange Windows</strong>, because the business is trying to serve two different city areas.</td></tr>
+      <tr><td>Reviews</td><td>You explained that most of the company’s review history currently sits on Yelp, but your husband wants Google to become the stronger review destination going forward.</td></tr>
+      <tr><td>Yelp experience</td><td>You said that, from your husband’s experience, spending more with Yelp appears to improve paid visibility, while the advertising has not translated into the sales he expected.</td></tr>
+      <tr><td>Where you want to go</td><td>You want a clearer Google setup, stronger Google reviews, and advertising that can be tied back to real homeowner enquiries and completed projects.</td></tr>
+    </tbody>
+  </table>
 
-<div class="note"><strong>This review is not a commitment to start advertising.</strong>My aim is to establish which assets are legitimate, preserve useful review equity, and build a system where future spend can be measured against qualified enquiries, estimates and completed projects.</div>
-<div class="actions"><span></span><button type="button" class="btn primary next">Continue</button></div>
+  <div class="callout"><strong>One thing I noticed:</strong> the two Google Maps URLs in the message you forwarded are the same link. Later I’ll ask you for the second unique profile link so I can compare both listings side by side.</div>
+
+  <div class="actions">
+    <span class="micro">Nothing on this page needs an answer. I’m simply confirming that I heard you correctly.</span>
+    <button type="button" class="btn primary next">Yes, continue</button>
+  </div>
 </section>
 
-<section class="page" data-title="Proposed direction">
-<h2>The customer journey I’m proposing</h2>
-<p class="lead">The Google Business Profiles and the paid ads have different jobs. The profiles establish local presence and reputation. Search advertising captures people who are already looking for replacement windows or doors. The website then needs to turn that attention into an enquiry.</p>
-<div class="flow"><div>1. Homeowner searches Google</div><div>2. Sees local profile or relevant ad</div><div>3. Lands on focused service page</div><div>4. Calls / requests consultation</div><div>5. Estimate is tracked to a sale</div></div>
-<table class="fact-table">
-<thead><tr><th>Asset</th><th>How I would use it</th></tr></thead>
-<tbody>
-<tr><td>Google Business Profiles</td><td>Keep both only if both locations are eligible. Strengthen categories, services, photos, review collection and local information for each legitimate location.</td></tr>
-<tr><td>Existing website</td><td>Keep the main website. It already presents the company’s replacement windows, doors, testimonials, before/after work and free in-home consultation. <a class="source-link" target="_blank" rel="noopener" href="https://www.customexchangeinc.com/">View current website ↗</a></td></tr>
-<tr><td>Paid Google Search traffic</td><td>Send high-intent ad traffic to a focused landing page on the same domain instead of making every visitor work through the homepage to find the next step.</td></tr>
-<tr><td>Google Maps visibility</td><td>Link eligible locations to Google Ads through location assets. Google says these assets may appear across Search and Google Maps; Maps-only advertising is not guaranteed or available as an exclusive placement. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/google-ads/answer/16388390?hl=en">Google Maps advertising guidance ↗</a></td></tr>
-<tr><td>Measurement</td><td>Track calls and forms first, then record which became consultations, estimates and signed projects. That gives us a business result rather than a report made only of clicks.</td></tr>
-</tbody>
-</table>
-<div class="note"><strong>Why a dedicated landing page?</strong>A person searching “replacement windows Pleasanton” or “window installation San Jose” should immediately see the matching service, local relevance, actual project proof, reviews and one clear call-to-action. The normal website can still remain the main website listed on the Google Business Profiles.</div>
-<p class="lead">The remaining questions are only the information I still need to confirm. I’ve kept them in small groups so you and your husband can go through them without having to write a long response all at once.</p>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Start questions</button></div>
+<section class="page" data-title="Isabelle, here’s what I checked before asking you anything else.">
+  <div class="eyebrow">What I checked for you</div>
+  <h2 class="section-title">Here’s where my recommendation is coming from.</h2>
+  <p class="section-lead">I wanted you to be able to see the difference between what you told me and what the platforms themselves actually say. So these are the rules and facts I’m using as the starting point.</p>
+
+  <div class="fact-grid">
+    <article class="fact">
+      <div class="fact-num">Google • locations</div>
+      <h3>Two profiles can be valid, but not simply because you want to target two cities.</h3>
+      <p>Google says a service business may have separate profiles for separate locations when the locations have separate staff and separate service areas. That is the first thing I need to verify with you.</p>
+      <a class="source" href="https://support.google.com/business/answer/3038177?hl=en" target="_blank" rel="noopener">Google’s business-profile guidelines ↗</a>
+    </article>
+    <article class="fact">
+      <div class="fact-num">Google • reviews</div>
+      <h3>Your Yelp reviews do not simply transfer into Google.</h3>
+      <p>But if you still have legitimate contact details for past customers, you can invite them to leave a fresh, honest Google review. I’d build that into the system going forward.</p>
+      <a class="source" href="https://support.google.com/business/answer/3474122?hl=en" target="_blank" rel="noopener">Google’s review-request guidance ↗</a>
+    </article>
+    <article class="fact">
+      <div class="fact-num">Yelp • visibility</div>
+      <h3>Paid placement and review filtering are not the same thing.</h3>
+      <p>Yelp confirms that advertisers can appear in Sponsored Results. Yelp separately says its recommendation software treats advertisers and non-advertisers the same. So I want to judge Yelp by what the spend actually produced for you.</p>
+      <a class="source" href="https://www.yelp-support.com/article/How-does-Yelp-determine-its-search-results?l=en_US" target="_blank" rel="noopener">Yelp on search results ↗</a>
+      <br><a class="source" href="https://www.yelp-support.com/article/Do-businesses-that-advertise-on-Yelp-get-special-treatment-by-the-recommendation-software?l=en_GB" target="_blank" rel="noopener">Yelp on review recommendations ↗</a>
+    </article>
+    <article class="fact">
+      <div class="fact-num">Your website</div>
+      <h3>You already have useful material to work with.</h3>
+      <p>The site already shows replacement windows and doors, real homeowner reviews, project photos, a free in-home consultation and a clear Bay Area focus. I would improve the ad journey before suggesting a full rebuild.</p>
+      <a class="source" href="https://www.customexchangeinc.com/" target="_blank" rel="noopener">Open the current website ↗</a>
+    </article>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:25px;margin:34px 0 8px">The path I’d like us to build</h3>
+  <p class="section-lead" style="margin-bottom:18px">This is the simple version of how I want a homeowner to move from “I need windows” to an actual opportunity your husband can close.</p>
+  <div class="flow">
+    <div class="flow-item"><b>Google search</b><span>High-intent homeowner</span></div>
+    <div class="flow-item"><b>Local profile or ad</b><span>Relevant city + service</span></div>
+    <div class="flow-item"><b>Focused landing page</b><span>Proof + clear next step</span></div>
+    <div class="flow-item"><b>Call / consultation</b><span>Qualified enquiry</span></div>
+    <div class="flow-item"><b>Estimate -> project</b><span>Real business result</span></div>
+  </div>
+
+  <div class="callout"><strong>My website recommendation:</strong> keep the main site as the company website. For paid Search traffic, I’d prefer a focused landing page on the same domain so someone searching for a specific service in a specific city lands on a page built to turn that visit into a call or consultation.</div>
+
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button type="button" class="btn primary next">Start with the Google profiles</button>
+  </div>
 </section>
 
-<section class="page" data-title="Google profiles">
-<h2>1. Google Business Profiles</h2>
-<p class="lead">You already explained why the two profiles were created, so I’m not asking that again. What I still need is the operational information Google uses to determine whether both profiles are eligible to remain separate.</p>
-<div class="q"><label class="question">1. Could you send the second, unique Google Maps link?</label><p class="why">The two URLs in the WhatsApp message are the same link. I need one link for Custom Exchange, Inc. and one for Custom Exchange Windows so I can compare their names, addresses, categories, reviews and current setup.</p><input required type="text" name="01 - Second unique Google Maps link" placeholder="Paste the second Google Maps link here, or write 'I’ll send separately'."></div>
-<div class="q"><label class="question">2. Are the Pleasanton and San Jose locations each operated by separate Custom Exchange staff?</label><p class="why">Google specifically allows separate profiles for service-business locations when there are separate locations, separate staff and separate service areas.</p><div class="options">
-<label class="option"><input required type="radio" name="02 - Separate staff at both locations" value="Yes, separate staff operate from both">Yes, separate staff operate from both</label>
-<label class="option"><input type="radio" name="02 - Separate staff at both locations" value="Same team covers both locations">The same team covers both locations</label>
-<label class="option"><input type="radio" name="02 - Separate staff at both locations" value="Not sure">Not sure</label></div></div>
-<div class="q"><label class="question">3. Your website says both addresses are “by appointment only.” What actually happens at each address?</label><p class="why">For example: Can a customer meet a staff member there? Is there an office/showroom? Or are the addresses primarily operational bases while consultations happen in customers’ homes?</p><textarea required name="03 - How each address operates" placeholder="Please describe Pleasanton and San Jose separately."></textarea></div>
-<div class="q"><label class="question">4. Does each address have permanent Custom Exchange signage and business evidence that matches the profile name?</label><p class="why">Google may use signage and real-world branding during verification. This also helps determine whether the two different profile names are appropriate.</p><div class="options">
-<label class="option"><input required type="radio" name="04 - Signage and branding" value="Yes, both have permanent matching signage">Yes, both have permanent matching signage</label>
-<label class="option"><input type="radio" name="04 - Signage and branding" value="Only one does">Only one does</label>
-<label class="option"><input type="radio" name="04 - Signage and branding" value="Neither / not sure">Neither / not sure</label></div></div>
-<div class="q"><label class="question">5. Do you or your husband currently have owner or manager access to both Google Business Profiles?</label><div class="options">
-<label class="option"><input required type="radio" name="05 - GBP access" value="Yes, both">Yes, both</label>
-<label class="option"><input type="radio" name="05 - GBP access" value="Only one">Only one</label>
-<label class="option"><input type="radio" name="05 - GBP access" value="No / not sure">No / not sure</label></div></div>
-<div class="note"><strong>What I will decide from these answers</strong>If both locations are genuinely eligible, my preference would be to keep both profiles, manage them centrally, make the naming consistent with the real business branding, and build reviews for each legitimate location. If they are not separately eligible, I would recommend correcting the structure rather than risking a suspension by forcing two city profiles.</div>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Continue</button></div>
+<section class="page" data-title="Isabelle, I just need five things about the two Google profiles.">
+  <div class="eyebrow">Section 1 of 5</div>
+  <h2 class="section-title">Let’s make sure both Google profiles are set up safely.</h2>
+  <p class="section-lead">You already told me why the two profiles were created. I’m not asking that again. I only need the operational details Google uses to decide whether both profiles can legitimately remain separate.</p>
+  <div class="question-stack">
+    <div class="q">
+      <div class="q-top"><span class="q-no">01</span><h3>Could you send me the second, unique Google Maps link?</h3></div>
+      <p class="help">The two URLs you forwarded were identical. You can paste the other one here, or simply write “I’ll send it separately.”</p>
+      <input required type="text" name="01 - Second Google Maps link" placeholder="Paste the second Maps link, or write 'I’ll send it separately'">
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">02</span><h3>Do the Pleasanton and San Jose locations each have their own Custom Exchange staff operating from them?</h3></div>
+      <p class="help">This matters because Google specifically looks at separate staff and separate service areas when a service business has multiple profiles.</p>
+      <div class="options">
+        <label class="option"><input required type="radio" name="02 - Separate staff at both locations" value="Yes, separate staff operate from both locations">Yes, separate staff operate from both locations</label>
+        <label class="option"><input type="radio" name="02 - Separate staff at both locations" value="No, the same team covers both locations">No, the same team covers both locations</label>
+        <label class="option"><input type="radio" name="02 - Separate staff at both locations" value="I’m not sure">I’m not sure</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">03</span><h3>Your website describes the locations as “by appointment only.” What actually happens at each address?</h3></div>
+      <p class="help">For example: can a customer meet someone there, is it an office/showroom, or is it mainly an operational base while appointments happen in customers’ homes?</p>
+      <textarea required name="03 - How each address operates" placeholder="You can describe Pleasanton first, then San Jose."></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">04</span><h3>Does each location have permanent Custom Exchange signage or other real-world branding that matches the Google profile name?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="04 - Signage and real-world branding" value="Yes, both locations do">Yes, both locations do</label>
+        <label class="option"><input type="radio" name="04 - Signage and real-world branding" value="Only one location does">Only one location does</label>
+        <label class="option"><input type="radio" name="04 - Signage and real-world branding" value="No, or I’m not sure">No, or I’m not sure</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">05</span><h3>Do you or your husband currently have owner or manager access to both Google Business Profiles?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="05 - Google profile access" value="Yes, we have access to both">Yes, we have access to both</label>
+        <label class="option"><input type="radio" name="05 - Google profile access" value="We only have access to one">We only have access to one</label>
+        <label class="option"><input type="radio" name="05 - Google profile access" value="No, or we’re not sure">No, or we’re not sure</label>
+      </div>
+    </div>
+  </div>
+  <div class="callout"><strong>What I’ll do with these answers:</strong> if both locations are eligible, I’d rather strengthen both and manage them centrally. If they are not independently eligible, I’d correct the structure before we spend money promoting it.</div>
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button type="button" class="btn primary next">Next: Yelp & reviews</button>
+  </div>
 </section>
 
-<section class="page" data-title="Yelp & reviews">
-<h2>2. Yelp & customer reviews</h2>
-<p class="lead">You explained that your husband wants to move away from Yelp because, in your experience, the amount paid appears to affect how prominently the business is shown, while the advertising has not been producing the sales you expected. I want to treat that as your actual experience with the platform, then compare it with Yelp’s published explanation of how paid placement and review recommendations work. From there, I can judge the Yelp spend against the leads and customers it has actually produced.</p>
-<table class="fact-table"><tbody><tr><td>Paid visibility</td><td>Yelp says sponsored results are paid placements and may appear before organic results. <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/How-does-Yelp-determine-its-search-results?l=en_US">Yelp source ↗</a></td></tr><tr><td>Review filtering</td><td>Yelp says its automated recommendation software treats advertisers and non-advertisers the same. <a class="source-link" target="_blank" rel="noopener" href="https://www.yelp-support.com/article/Do-businesses-that-advertise-on-Yelp-get-special-treatment-by-the-recommendation-software?l=en_GB">Yelp source ↗</a></td></tr></tbody></table>
-<div class="q"><label class="question">6. Approximately how much are you currently spending on Yelp advertising each month?</label><input required type="text" name="06 - Yelp monthly spend" placeholder="Example: $800 per month, or Not sure"></div>
-<div class="q"><label class="question">7. Approximately how long has the paid Yelp advertising been running?</label><input required type="text" name="07 - Yelp duration" placeholder="Example: 8 months"></div>
-<div class="q"><label class="question">8. Does Yelp show any calls, messages, quote requests or leads? If so, do you know how many became actual customers?</label><textarea required name="08 - Yelp leads and sales" placeholder="Even an approximate answer is helpful."></textarea></div>
-<div class="q"><label class="question">9. Is there a contract, cancellation period, minimum term or notice requirement for the Yelp advertising?</label><div class="options">
-<label class="option"><input required type="radio" name="09 - Yelp cancellation terms" value="Yes">Yes</label>
-<label class="option"><input type="radio" name="09 - Yelp cancellation terms" value="No">No</label>
-<label class="option"><input type="radio" name="09 - Yelp cancellation terms" value="Not sure">Not sure</label></div></div>
-<div class="q"><label class="question">10. Do you still have legitimate contact details for a meaningful number of past customers who could be invited to leave a fresh Google review?</label><p class="why">Yes, past customers can be invited to leave a separate Google review if you have a legitimate way to contact them. We would not copy their Yelp review, offer an incentive, or only contact customers we expect to leave positive feedback. Google allows businesses to share a review link or QR code with customers. <a class="source-link" target="_blank" rel="noopener" href="https://support.google.com/business/answer/3474122?hl=en">Google review-request guidance ↗</a></p><div class="options">
-<label class="option"><input required type="radio" name="10 - Past customer contacts" value="Yes, most customers">Yes, most customers</label>
-<label class="option"><input type="radio" name="10 - Past customer contacts" value="Some customers">Some customers</label>
-<label class="option"><input type="radio" name="10 - Past customer contacts" value="No">No</label>
-<label class="option"><input type="radio" name="10 - Past customer contacts" value="Not sure">Not sure</label></div></div>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Continue</button></div>
+<section class="page" data-title="Isabelle, now I want to understand what Yelp has really produced.">
+  <div class="eyebrow">Section 2 of 5</div>
+  <h2 class="section-title">Let’s separate Yelp visibility from Yelp results.</h2>
+  <p class="section-lead">You’ve already explained why your husband wants to move away from Yelp. I’m not trying to defend Yelp here. I simply want enough numbers to make sure we move budget based on business results, not guesswork.</p>
+  <div class="question-stack">
+    <div class="q">
+      <div class="q-top"><span class="q-no">06</span><h3>Roughly how much is your husband spending on Yelp advertising each month right now?</h3></div>
+      <p class="help">An estimate is fine. You don’t need to look for an exact invoice tonight.</p>
+      <input required type="text" name="06 - Current Yelp monthly spend" placeholder="Example: about $800/month, or Not sure">
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">07</span><h3>About how long has the current paid Yelp advertising been running?</h3></div>
+      <input required type="text" name="07 - Yelp advertising duration" placeholder="Example: 8 months">
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">08</span><h3>When Yelp reports calls, messages or quote requests, do you know roughly how many of those have turned into actual paying customers?</h3></div>
+      <p class="help">If the answer is “none that we can clearly trace” or “we don’t currently track it,” that is useful information too.</p>
+      <textarea required name="08 - Yelp leads and paying customers" placeholder="Tell me what you know about Yelp enquiries versus actual sales."></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">09</span><h3>Is there any Yelp contract, minimum term or cancellation notice your husband is still tied to?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="09 - Yelp cancellation terms" value="Yes">Yes</label>
+        <label class="option"><input type="radio" name="09 - Yelp cancellation terms" value="No">No</label>
+        <label class="option"><input type="radio" name="09 - Yelp cancellation terms" value="We’re not sure">We’re not sure</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">10</span><h3>Do you still have legitimate contact details for a meaningful number of past customers?</h3></div>
+      <p class="help">If yes, we can build a neutral Google review invitation for genuine past customers. We would not copy their Yelp review, offer incentives, or only contact people we expect to leave positive feedback.</p>
+      <div class="options">
+        <label class="option"><input required type="radio" name="10 - Past customer contact list" value="Yes, for most customers">Yes, for most customers</label>
+        <label class="option"><input type="radio" name="10 - Past customer contact list" value="For some customers">For some customers</label>
+        <label class="option"><input type="radio" name="10 - Past customer contact list" value="No">No</label>
+        <label class="option"><input type="radio" name="10 - Past customer contact list" value="I’m not sure">I’m not sure</label>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button type="button" class="btn primary next">Next: website & lead handling</button>
+  </div>
 </section>
 
-<section class="page" data-title="Website & leads">
-<h2>3. Website & enquiry handling</h2>
-<p class="lead">The advertising can only work properly if a potential customer has a clear path from the ad to an enquiry and receives a timely response.</p>
-<div class="q"><label class="question">11. Who currently controls the website, hosting and domain?</label><textarea required name="11 - Website control" placeholder="For example: current developer, husband, both, or not sure."></textarea></div>
-<div class="q"><label class="question">12. Would it be possible to grant temporary access for tracking setup and small website changes, or would every change have to go through the current developer?</label><div class="options">
-<label class="option"><input required type="radio" name="12 - Website access" value="We can grant access">We can grant access</label>
-<label class="option"><input type="radio" name="12 - Website access" value="Changes must go through current developer">Changes must go through the current developer</label>
-<label class="option"><input type="radio" name="12 - Website access" value="Not sure">Not sure</label></div></div>
-<div class="q"><label class="question">13. What should be the primary action for people coming from Google?</label><div class="options">
-<label class="option"><input required type="radio" name="13 - Primary conversion action" value="Phone call">Phone call</label>
-<label class="option"><input type="radio" name="13 - Primary conversion action" value="Request an in-home consultation">Request an in-home consultation</label>
-<label class="option"><input type="radio" name="13 - Primary conversion action" value="Contact form / estimate request">Contact form / estimate request</label>
-<label class="option"><input type="radio" name="13 - Primary conversion action" value="Combination">A combination of these</label></div></div>
-<div class="q"><label class="question">14. Would you be comfortable adding a dedicated Google Ads landing page to the existing website if I recommend it after the audit?</label><div class="options">
-<label class="option"><input required type="radio" name="14 - Landing page" value="Yes">Yes</label>
-<label class="option"><input type="radio" name="14 - Landing page" value="Possibly, depending on scope and cost">Possibly, depending on scope and cost</label>
-<label class="option"><input type="radio" name="14 - Landing page" value="Prefer current pages initially">Prefer to use the current pages initially</label></div></div>
-<div class="q"><label class="question">15. Who normally answers new enquiries, and how quickly are missed calls or web enquiries followed up?</label><textarea required name="15 - Lead response process" placeholder="Example: office manager, usually within 30 minutes."></textarea></div>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Continue</button></div>
+<section class="page" data-title="Isabelle, this part tells me whether the website can support the ads.">
+  <div class="eyebrow">Section 3 of 5</div>
+  <h2 class="section-title">Now I want to make sure a good lead has somewhere good to go.</h2>
+  <p class="section-lead">I don’t think a full website rebuild needs to be the first move. What I do need to know is whether we can track enquiries and make a focused landing page without getting stuck behind the current developer.</p>
+  <div class="question-stack">
+    <div class="q">
+      <div class="q-top"><span class="q-no">11</span><h3>Who currently controls the website, domain and hosting?</h3></div>
+      <p class="help">You can just tell me whether that is your husband, the current developer, or someone else.</p>
+      <textarea required name="11 - Website domain hosting control" placeholder="Who currently has control/access?"></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">12</span><h3>If I need to add tracking or a focused landing page, could temporary website access be provided?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="12 - Website access for tracking and landing page" value="Yes, access can be provided">Yes, access can be provided</label>
+        <label class="option"><input type="radio" name="12 - Website access for tracking and landing page" value="Changes would need to go through the current developer">Changes would need to go through the current developer</label>
+        <label class="option"><input type="radio" name="12 - Website access for tracking and landing page" value="We’re not sure yet">We’re not sure yet</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">13</span><h3>When a homeowner comes from Google, what would your husband most like them to do first?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="13 - Preferred first lead action" value="Call the business">Call the business</label>
+        <label class="option"><input type="radio" name="13 - Preferred first lead action" value="Request a free in-home consultation">Request a free in-home consultation</label>
+        <label class="option"><input type="radio" name="13 - Preferred first lead action" value="Submit an estimate/contact form">Submit an estimate/contact form</label>
+        <label class="option"><input type="radio" name="13 - Preferred first lead action" value="Use a combination of these">Use a combination of these</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">14</span><h3>If I recommend a dedicated Google Ads landing page on the existing domain, would you both be open to it?</h3></div>
+      <p class="help">This would not mean rebuilding the entire site. It would be one focused page designed around the ad traffic.</p>
+      <div class="options">
+        <label class="option"><input required type="radio" name="14 - Openness to dedicated landing page" value="Yes">Yes</label>
+        <label class="option"><input type="radio" name="14 - Openness to dedicated landing page" value="Possibly, depending on scope and cost">Possibly, depending on scope and cost</label>
+        <label class="option"><input type="radio" name="14 - Openness to dedicated landing page" value="We would rather use the current pages first">We would rather use the current pages first</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">15</span><h3>Who normally answers new calls or web enquiries, and how quickly are missed leads followed up?</h3></div>
+      <p class="help">This matters because even a strong ad campaign can look weak if good leads sit unanswered.</p>
+      <textarea required name="15 - Lead response and follow-up process" placeholder="Example: my husband answers calls; missed calls are usually returned within an hour."></textarea>
+    </div>
+  </div>
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button type="button" class="btn primary next">Next: services & capacity</button>
+  </div>
 </section>
 
-<section class="page" data-title="Services & sales">
-<h2>4. Services, service areas & sales</h2>
-<p class="lead">This helps me avoid paying for traffic that is outside the work your husband actually wants.</p>
-<div class="q"><label class="question">16. Which services should receive the most advertising attention?</label><p class="why">Select every service that is genuinely important.</p><div class="options">
-<label class="option"><input type="checkbox" name="16 - Priority services" value="Full window replacement">Full window replacement</label>
-<label class="option"><input type="checkbox" name="16 - Priority services" value="Energy-efficient windows">Energy-efficient windows</label>
-<label class="option"><input type="checkbox" name="16 - Priority services" value="Patio / sliding doors">Patio / sliding doors</label>
-<label class="option"><input type="checkbox" name="16 - Priority services" value="Other">Other / additional services</label></div><textarea name="16b - Other priority services" placeholder="Anything else to prioritize?"></textarea></div>
-<div class="q"><label class="question">17. Which cities or areas should we prioritize, and are there places where you do not want enquiries?</label><textarea required name="17 - Priority service areas" placeholder="Please list priority cities/areas and any exclusions."></textarea></div>
-<div class="q"><label class="question">18. What is the approximate value of a typical completed project?</label><input required type="text" name="18 - Typical project value" placeholder="A range is completely fine."></div>
-<div class="q"><label class="question">19. Are there particular job types or project sizes that are especially valuable, or any that you would rather not advertise?</label><textarea required name="19 - Preferred and excluded projects" placeholder="This helps focus the budget on the right work."></textarea></div>
-<div class="q"><label class="question">20. Roughly how many additional consultations or new projects could the team comfortably handle per month?</label><input required type="text" name="20 - Monthly capacity" placeholder="Approximate number is fine."></div>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Continue</button></div>
+<section class="page" data-title="Isabelle, now I want to focus the budget on the work your husband actually wants.">
+  <div class="eyebrow">Section 4 of 5</div>
+  <h2 class="section-title">Let’s make sure we advertise the right work in the right places.</h2>
+  <p class="section-lead">I’d rather bring your husband ten relevant opportunities than fifty random enquiries. These answers help me shape the geography, keywords and landing-page message around the work that matters most.</p>
+  <div class="question-stack">
+    <div class="q">
+      <div class="q-top"><span class="q-no">16</span><h3>Which services would your husband most like Google to generate enquiries for?</h3></div>
+      <p class="help">Select everything that matters. If there is a service I missed, add it below.</p>
+      <div class="options">
+        <label class="option"><input type="checkbox" name="16 - Priority services" value="Full window replacement">Full window replacement</label>
+        <label class="option"><input type="checkbox" name="16 - Priority services" value="Energy-efficient replacement windows">Energy-efficient replacement windows</label>
+        <label class="option"><input type="checkbox" name="16 - Priority services" value="Patio / sliding door replacement">Patio / sliding door replacement</label>
+        <label class="option"><input type="checkbox" name="16 - Priority services" value="Other">Other</label>
+      </div>
+      <textarea name="16b - Other priority services" placeholder="Anything else you’d like me to include?"></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">17</span><h3>Which cities or areas matter most, and are there any places you do not want enquiries from?</h3></div>
+      <textarea required name="17 - Priority cities and excluded areas" placeholder="List priority areas first, then any places to exclude."></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">18</span><h3>Roughly what is the value of a typical completed project?</h3></div>
+      <p class="help">A range is perfect. This helps me think about what a sensible cost per qualified lead might look like.</p>
+      <input required type="text" name="18 - Typical completed project value" placeholder="Example: $8,000-$15,000">
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">19</span><h3>Are there job types your husband especially wants more of, or any he would rather not advertise?</h3></div>
+      <textarea required name="19 - Preferred and excluded project types" placeholder="Tell me what is most valuable, and anything you don’t want to pay to advertise."></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">20</span><h3>If the advertising works well, roughly how many extra consultations or projects could the current team comfortably handle each month?</h3></div>
+      <input required type="text" name="20 - Monthly additional capacity" placeholder="An approximate number is fine.">
+    </div>
+  </div>
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button type="button" class="btn primary next">Next: ads, budget & measurement</button>
+  </div>
 </section>
 
-<section class="page" data-title="Google Ads">
-<h2>5. Google Ads, budget & measurement</h2>
-<p class="lead">The final section tells me what historical information we can use and how conservative or aggressive the initial test should be.</p>
-<div class="q"><label class="question">21. Is there an old Google Ads / AdWords account from previous advertising, and can administrator access be provided?</label><div class="options">
-<label class="option"><input required type="radio" name="21 - Existing Google Ads account" value="Yes, with access">Yes, and we can provide access</label>
-<label class="option"><input type="radio" name="21 - Existing Google Ads account" value="There was an account but access is unclear">There was an account, but access is unclear</label>
-<label class="option"><input type="radio" name="21 - Existing Google Ads account" value="No / not sure">No / not sure</label></div></div>
-<div class="q"><label class="question">22. If Google advertising has been used before, what do you remember about the results?</label><textarea required name="22 - Previous Google Ads results" placeholder="Calls, enquiries, costs, problems, what seemed to work, or simply Not sure."></textarea></div>
-<div class="q"><label class="question">23. What monthly advertising budget, paid directly to Google, would feel comfortable for the initial test?</label><div class="options">
-<label class="option"><input required type="radio" name="23 - Initial media budget" value="Under $1,500">Under $1,500</label>
-<label class="option"><input type="radio" name="23 - Initial media budget" value="$1,500-$2,000">$1,500–$2,000</label>
-<label class="option"><input type="radio" name="23 - Initial media budget" value="$2,000-$3,000">$2,000–$3,000</label>
-<label class="option"><input type="radio" name="23 - Initial media budget" value="$3,000-$5,000">$3,000–$5,000</label>
-<label class="option"><input type="radio" name="23 - Initial media budget" value="Prefer recommendation">We would prefer your recommendation</label></div></div>
-<div class="q"><label class="question">24. Which initial test period would you be most comfortable with?</label><div class="options">
-<label class="option"><input required type="radio" name="24 - Pilot duration" value="1 month">1 month</label>
-<label class="option"><input type="radio" name="24 - Pilot duration" value="3 months">3 months</label>
-<label class="option"><input type="radio" name="24 - Pilot duration" value="6 months">6 months</label>
-<label class="option"><input type="radio" name="24 - Pilot duration" value="Prefer recommendation">We would prefer your recommendation</label></div></div>
-<div class="q"><label class="question">25. What would make you and your husband feel that this project is working?</label><p class="why">For example: more qualified calls, more in-home consultations, lower cost per lead, more signed projects, or simply clear proof of where the advertising money is going.</p><textarea required name="25 - Definition of success and final notes" placeholder="Please also add anything else I should know before preparing the quotation."></textarea></div>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button type="button" class="btn primary next">Review answers</button></div>
+<section class="page" data-title="Isabelle, these last five answers let me turn this into an actual quote.">
+  <div class="eyebrow">Section 5 of 5</div>
+  <h2 class="section-title">Finally, let’s define the test and what “working” should mean.</h2>
+  <p class="section-lead">Once I know what historical Google data exists, what budget feels comfortable, and what result matters to you both, I can scope the work without guessing.</p>
+  <div class="question-stack">
+    <div class="q">
+      <div class="q-top"><span class="q-no">21</span><h3>Does your husband still have the old Google Ads / AdWords account, and can administrator access be provided?</h3></div>
+      <p class="help">Historical search terms, spend and conversion data could save us from relearning things the account already knows.</p>
+      <div class="options">
+        <label class="option"><input required type="radio" name="21 - Existing Google Ads account access" value="Yes, and access can be provided">Yes, and access can be provided</label>
+        <label class="option"><input type="radio" name="21 - Existing Google Ads account access" value="There was an account, but access is unclear">There was an account, but access is unclear</label>
+        <label class="option"><input type="radio" name="21 - Existing Google Ads account access" value="No, or we’re not sure">No, or we’re not sure</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">22</span><h3>What does your husband remember about the old Google advertising?</h3></div>
+      <p class="help">Anything helps: good calls, expensive clicks, certain cities, a previous agency, no tracking, or simply “we don’t remember.”</p>
+      <textarea required name="22 - Previous Google advertising experience" placeholder="Tell me whatever you remember about the old Google campaigns."></textarea>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">23</span><h3>What monthly ad budget, paid directly to Google, would feel comfortable for the initial test?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="23 - Comfortable monthly Google ad budget" value="Under $1,500">Under $1,500</label>
+        <label class="option"><input type="radio" name="23 - Comfortable monthly Google ad budget" value="$1,500-$2,000">$1,500-$2,000</label>
+        <label class="option"><input type="radio" name="23 - Comfortable monthly Google ad budget" value="$2,000-$3,000">$2,000-$3,000</label>
+        <label class="option"><input type="radio" name="23 - Comfortable monthly Google ad budget" value="$3,000-$5,000">$3,000-$5,000</label>
+        <label class="option"><input type="radio" name="23 - Comfortable monthly Google ad budget" value="We’d prefer your recommendation">We’d prefer your recommendation</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">24</span><h3>How long would you both feel comfortable giving the first campaign enough time to learn and improve?</h3></div>
+      <div class="options">
+        <label class="option"><input required type="radio" name="24 - Preferred initial test period" value="1 month">1 month</label>
+        <label class="option"><input type="radio" name="24 - Preferred initial test period" value="3 months">3 months</label>
+        <label class="option"><input type="radio" name="24 - Preferred initial test period" value="6 months">6 months</label>
+        <label class="option"><input type="radio" name="24 - Preferred initial test period" value="We’d prefer your recommendation">We’d prefer your recommendation</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">25</span><h3>If we look back after the test, what result would make you and your husband say, “Yes, this is working”?</h3></div>
+      <p class="help">It could be more qualified calls, more consultations, a target number of signed projects, clearer tracking, or a combination.</p>
+      <textarea required name="25 - What success should look like" placeholder="Tell me what a successful outcome would feel like for both of you."></textarea>
+    </div>
+  </div>
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button type="button" class="btn primary next">Review everything</button>
+  </div>
 </section>
 
-<section class="page" data-title="Review & submit">
-<h2>Review & submit</h2>
-<p class="lead">Thank you. Please add your contact details below, review the summary, and submit when ready. A PDF copy of this completed questionnaire will be generated automatically and attached to the submission.</p>
-<div class="q"><label class="question">Your name</label><input required type="text" name="Respondent name" value="Isabelle"></div>
-<div class="q"><label class="question">Your email</label><input required type="email" name="email" placeholder="Your email address"></div>
-<div class="review" id="reviewBox"></div>
-<div class="note"><strong>What happens next?</strong>I’ll review your answers against the website, Google profiles and advertising requirements. I can then prepare a quotation showing what should be done first, what is optional, the proposed Google advertising setup, and the management scope.</div>
-<div class="actions"><button type="button" class="btn secondary back">Back</button><button id="submitBtn" type="submit" class="btn primary">Submit completed review</button></div>
-<p class="small">Submitting this form does not authorize advertising spend or changes to your accounts.</p>
+<section class="page" data-title="Isabelle, that’s everything I need for the quote.">
+  <div class="eyebrow">Final check</div>
+  <h2 class="section-title">Isabelle, that’s everything I need from you.</h2>
+  <p class="section-lead">Thank you for going through it. I’ll use these answers to decide the safest profile structure, the review plan, what the website needs for ad traffic, and the advertising scope I should actually quote you for.</p>
+
+  <div class="submit-box">
+    <h3>Your details</h3>
+    <p>Add the email you’d like attached to this response. Your completed answers will also be turned into a PDF and sent to me automatically when you submit.</p>
+  </div>
+
+  <div class="question-stack">
+    <div class="q">
+      <div class="q-top"><span class="q-no">A</span><h3>Your name</h3></div>
+      <input required type="text" name="Respondent name" value="Isabelle">
+    </div>
+    <div class="q">
+      <div class="q-top"><span class="q-no">B</span><h3>Your email</h3></div>
+      <input required type="email" name="email" placeholder="Your email address">
+    </div>
+  </div>
+
+  <div class="review-block" id="reviewBox"></div>
+
+  <div class="personal-note" style="margin-top:26px">
+    <div class="avatar">O</div>
+    <div><strong>What I’ll do after this</strong><p>I’ll review the answers against what I’ve already seen publicly, then I’ll come back to you with the recommended order of work and a quote that separates setup, any website/landing-page work, ongoing management and the ad budget paid directly to Google.</p></div>
+  </div>
+
+  <div class="signature">Olalekan</div>
+
+  <div class="actions">
+    <button type="button" class="btn secondary back">Back</button>
+    <button id="submitBtn" type="submit" class="btn primary">Submit & create my PDF</button>
+  </div>
+  <p class="micro" style="margin-top:12px">Submitting this planning review does not authorize any advertising spend or account changes.</p>
 </section>
 </form>
-
-<div class="success" id="success">
-<div class="check">✓</div><h2>Thank you, Isabelle.</h2><p>Your responses have been submitted. Olalekan will review them before preparing the quotation.</p>
 </div>
+</main>
 </div>
 </div>
 
 <script>
-const pages=[...document.querySelectorAll('.page')];let current=0;
-const bar=document.getElementById('progressBar'),stepText=document.getElementById('stepText'),stepCount=document.getElementById('stepCount');
-function update(){pages.forEach((p,i)=>p.classList.toggle('active',i===current));stepText.textContent=pages[current].dataset.title;stepCount.textContent=(current+1)+' of '+pages.length;bar.style.width=((current+1)/pages.length*100)+'%';window.scrollTo({top:0,behavior:'smooth'});if(current===pages.length-1)buildReview()}
-function validPage(){const fields=[...pages[current].querySelectorAll('[required]')];for(const el of fields){if(el.type==='radio'){const group=pages[current].querySelectorAll('input[type=radio][name="'+CSS.escape(el.name)+'"]');if(![...group].some(x=>x.checked)){el.focus();el.reportValidity();return false}}else if(!el.checkValidity()){el.reportValidity();return false}}return true}
-document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',()=>{if(!validPage())return;if(current<pages.length-1){current++;update();saveDraft()}}));
-document.querySelectorAll('.back').forEach(b=>b.addEventListener('click',()=>{if(current>0){current--;update()}}));
-function answers(){const fd=new FormData(document.getElementById('discoveryForm')),obj={};for(const [k,v] of fd.entries()){if(k.startsWith('_')||k==='attachment')continue;if(obj[k])obj[k]+=', '+v;else obj[k]=v}return obj}
-function buildReview(){const obj=answers();const box=document.getElementById('reviewBox');box.innerHTML='<h3>Your response summary</h3>'+Object.entries(obj).filter(([k])=>/^\d/.test(k)).map(([k,v])=>'<p><strong>'+k.replace(/^\d+\w?\s*-\s*/,'')+':</strong> '+escapeHtml(v)+'</p>').join('')}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function saveDraft(){const data={};document.querySelectorAll('input,textarea,select').forEach(el=>{if(!el.name||el.name.startsWith('_')||el.type==='file')return;if(el.type==='radio'||el.type==='checkbox'){if(el.checked)(data[el.name]??=[]).push(el.value)}else data[el.name]=el.value});localStorage.setItem('customExchangeDraft',JSON.stringify(data))}
-function loadDraft(){try{const d=JSON.parse(localStorage.getItem('customExchangeDraft')||'{}');document.querySelectorAll('input,textarea,select').forEach(el=>{if(!(el.name in d))return;if(el.type==='radio'||el.type==='checkbox')el.checked=(d[el.name]||[]).includes(el.value);else el.value=d[el.name]})}catch(e){}}
-document.addEventListener('input',saveDraft);document.addEventListener('change',saveDraft);
+const pages=[...document.querySelectorAll('.page')];
+const chips=[...document.querySelectorAll('.step-chip')];
+const form=document.getElementById('discoveryForm');
+const progressBar=document.getElementById('progressBar');
+const progressMeta=document.getElementById('progressMeta');
+const topTitle=document.getElementById('topTitle');
+let current=0;
 
-async function makePdf(){
- const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'letter'});const margin=52,maxW=508;let y=58;
- const add=(txt,size=10,bold=false,space=8)=>{doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size);const lines=doc.splitTextToSize(String(txt||''),maxW);const h=lines.length*(size*1.35);if(y+h>735){doc.addPage();y=58}doc.text(lines,margin,y);y+=h+space};
- add('CUSTOM EXCHANGE WINDOWS',11,true,4);add('Google Visibility & Lead Generation Review',18,true,16);
- add('Prepared for Isabelle and her husband | Completed questionnaire',10,false,16);
- add('OBSERVATIONS & PROPOSED DIRECTION',11,true,8);
- add('Website: The current website is a usable starting point. A full rebuild does not need to be part of the initial advertising project unless later required.',10,false,8);
- add('Google Business Profiles: Isabelle has explained that there are two city-based profiles. Google allows separate service-business profiles when locations have separate staff and service areas, so I would verify eligibility before merging or deleting anything.',10,false,8);
- add('Yelp and reviews: Yelp sells sponsored visibility, while Yelp states its review recommendation software treats advertisers and non-advertisers the same. Existing Yelp reviews do not transfer to Google, but genuine past customers may be neutrally invited to leave a new Google review.',10,false,8);
- add('Advertising: The proposed system is Google search → relevant ad → focused landing page → call or consultation request → estimate → project, with tracking at each meaningful stage.',10,false,14);
- add('RESPONSES',11,true,10);
- const obj=answers();for(const [k,v] of Object.entries(obj)){if(k==='email'||k==='Respondent name')continue;add(k.replace(/^\d+\w?\s*-\s*/,''),10,true,4);add(v||'No response',10,false,9)}
- add('RESPONDENT',11,true,7);add((obj['Respondent name']||'')+' | '+(obj.email||''),10,false,4);
- add('Submission date: '+new Date().toLocaleString(),9,false,0);
- return doc.output('blob');
+function updateUI(){
+  pages.forEach((p,i)=>p.classList.toggle('active',i===current));
+  chips.forEach((c,i)=>{
+    c.classList.toggle('active',i===current);
+    c.classList.toggle('done',i<current);
+    const dot=c.querySelector('.dot');
+    dot.textContent=i<current?'✓':String(i+1);
+  });
+  progressBar.style.width=((current+1)/pages.length*100)+'%';
+  progressMeta.textContent=(current+1)+' of '+pages.length;
+  topTitle.textContent=pages[current].dataset.title;
+  if(current===pages.length-1)buildReview();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.getElementById('discoveryForm').addEventListener('submit',async e=>{
- e.preventDefault();if(!validPage())return;
- const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Preparing PDF…';
- try{
-  const blob=await makePdf();
-  const file=new File([blob],'Custom-Exchange-Isabelle-Completed-Review.pdf',{type:'application/pdf'});
-  const dt=new DataTransfer();dt.items.add(file);document.getElementById('pdfAttachment').files=dt.files;
-  localStorage.removeItem('customExchangeDraft');btn.textContent='Submitting…';
-  e.target.submit();
- }catch(err){console.error(err);btn.disabled=false;btn.textContent='Submit completed review';alert('The PDF could not be generated on this device. Please try again or contact Olalekan.')}
+function validateCurrent(){
+  const required=[...pages[current].querySelectorAll('[required]')];
+  const checkedGroups=new Set();
+  for(const el of required){
+    if(el.type==='radio'){
+      if(checkedGroups.has(el.name)) continue;
+      checkedGroups.add(el.name);
+      const group=[...pages[current].querySelectorAll('input[type="radio"][name="'+CSS.escape(el.name)+'"]')];
+      if(!group.some(x=>x.checked)){
+        el.focus();
+        el.reportValidity();
+        return false;
+      }
+    }else if(!el.checkValidity()){
+      el.reportValidity();
+      return false;
+    }
+  }
+  return true;
+}
+
+document.querySelectorAll('.next').forEach(btn=>btn.addEventListener('click',()=>{
+  if(!validateCurrent()) return;
+  if(current<pages.length-1){current++;saveDraft();updateUI();}
+}));
+document.querySelectorAll('.back').forEach(btn=>btn.addEventListener('click',()=>{
+  if(current>0){current--;updateUI();}
+}));
+
+function getAnswers(){
+  const fd=new FormData(form), out={};
+  for(const [k,v] of fd.entries()){
+    if(k.startsWith('_')||k==='attachment'||k==='Form version') continue;
+    if(out[k]) out[k]+=', '+v; else out[k]=v;
+  }
+  return out;
+}
+
+function saveDraft(){
+  const data={};
+  form.querySelectorAll('input,textarea,select').forEach(el=>{
+    if(!el.name||el.name.startsWith('_')||el.type==='file') return;
+    if(el.type==='radio'||el.type==='checkbox'){
+      if(el.checked)(data[el.name]??=[]).push(el.value);
+    }else data[el.name]=el.value;
+  });
+  localStorage.setItem('customExchangePremiumDraft',JSON.stringify(data));
+}
+function loadDraft(){
+  try{
+    const data=JSON.parse(localStorage.getItem('customExchangePremiumDraft')||'{}');
+    form.querySelectorAll('input,textarea,select').forEach(el=>{
+      if(!(el.name in data)) return;
+      if(el.type==='radio'||el.type==='checkbox') el.checked=(data[el.name]||[]).includes(el.value);
+      else el.value=data[el.name];
+    });
+  }catch(e){}
+}
+document.addEventListener('input',saveDraft);
+document.addEventListener('change',saveDraft);
+
+const REVIEW_LABELS={
+  "01 - Second Google Maps link":"Second Google Maps link",
+  "02 - Separate staff at both locations":"Separate staff at both locations",
+  "03 - How each address operates":"How each address operates",
+  "04 - Signage and real-world branding":"Signage / real-world branding",
+  "05 - Google profile access":"Access to both Google profiles",
+  "06 - Current Yelp monthly spend":"Current Yelp monthly spend",
+  "07 - Yelp advertising duration":"How long Yelp advertising has run",
+  "08 - Yelp leads and paying customers":"Yelp enquiries versus paying customers",
+  "09 - Yelp cancellation terms":"Yelp cancellation terms",
+  "10 - Past customer contact list":"Past-customer contact list",
+  "11 - Website domain hosting control":"Who controls website/domain/hosting",
+  "12 - Website access for tracking and landing page":"Website access",
+  "13 - Preferred first lead action":"Preferred first action from a lead",
+  "14 - Openness to dedicated landing page":"Dedicated landing page",
+  "15 - Lead response and follow-up process":"Lead response process",
+  "16 - Priority services":"Priority services",
+  "16b - Other priority services":"Other priority services",
+  "17 - Priority cities and excluded areas":"Priority and excluded areas",
+  "18 - Typical completed project value":"Typical project value",
+  "19 - Preferred and excluded project types":"Preferred / excluded project types",
+  "20 - Monthly additional capacity":"Monthly additional capacity",
+  "21 - Existing Google Ads account access":"Old Google Ads account access",
+  "22 - Previous Google advertising experience":"Previous Google advertising",
+  "23 - Comfortable monthly Google ad budget":"Comfortable monthly ad budget",
+  "24 - Preferred initial test period":"Preferred initial test period",
+  "25 - What success should look like":"Definition of success"
+};
+
+function escapeHtml(str){
+  return String(str??'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function buildReview(){
+  const answers=getAnswers();
+  const entries=Object.entries(answers).filter(([k])=>REVIEW_LABELS[k]);
+  document.getElementById('reviewBox').innerHTML=entries.map(([k,v])=>
+    '<div class="review-row"><b>'+escapeHtml(REVIEW_LABELS[k])+'</b><span>'+escapeHtml(v||'No response')+'</span></div>'
+  ).join('');
+}
+
+const PDF_TEMPLATE={
+  title:"Custom Exchange Windows | Google Visibility & Lead Generation Planning Review",
+  preparedFor:"Isabelle and her husband",
+  preparedBy:"Olalekan",
+  alreadyShared:[
+    ["Two Google profiles","You explained that your husband has one Google Maps profile under Custom Exchange, Inc. and another under Custom Exchange Windows because the business is trying to serve two different city areas."],
+    ["Reviews","You explained that most of the company’s review history currently sits on Yelp, but your husband wants Google to become the stronger review destination going forward."],
+    ["Yelp experience","You said that, from your husband’s experience, spending more with Yelp appears to improve paid visibility, while the advertising has not translated into the sales he expected."],
+    ["Main objective","You want a clearer Google setup, stronger Google reviews, and advertising that can be tied back to real homeowner enquiries and completed projects."]
+  ],
+  recommendation:[
+    ["Google profiles","Verify whether both locations qualify independently before merging, deleting or heavily promoting either profile."],
+    ["Reviews","Keep the existing Yelp reputation visible while building a compliant Google review-request process for genuine past and future customers."],
+    ["Website","Keep the current site as the main company site. Use a focused landing page on the same domain for high-intent paid Search traffic if access and scope allow."],
+    ["Measurement","Track calls and forms, then connect qualified enquiries to consultations, estimates and completed projects whenever possible."]
+  ],
+  sources:[
+    ["Google Business Profile guidelines","https://support.google.com/business/answer/3038177?hl=en"],
+    ["Google review-request guidance","https://support.google.com/business/answer/3474122?hl=en"],
+    ["Google Maps advertising guidance","https://support.google.com/google-ads/answer/16388390?hl=en"],
+    ["Yelp search-results explanation","https://www.yelp-support.com/article/How-does-Yelp-determine-its-search-results?l=en_US"],
+    ["Yelp advertiser / review-software explanation","https://www.yelp-support.com/article/Do-businesses-that-advertise-on-Yelp-get-special-treatment-by-the-recommendation-software?l=en_GB"],
+    ["Custom Exchange current website","https://www.customexchangeinc.com/"]
+  ],
+  answerSections:[
+    {
+      heading:"1. Google Business Profiles",
+      rows:[
+        ["Second Google Maps link","{{01 - Second Google Maps link}}"],
+        ["Separate staff at both locations","{{02 - Separate staff at both locations}}"],
+        ["How each address operates","{{03 - How each address operates}}"],
+        ["Signage / real-world branding","{{04 - Signage and real-world branding}}"],
+        ["Access to both Google profiles","{{05 - Google profile access}}"]
+      ]
+    },
+    {
+      heading:"2. Yelp & Reviews",
+      rows:[
+        ["Current Yelp monthly spend","{{06 - Current Yelp monthly spend}}"],
+        ["Yelp advertising duration","{{07 - Yelp advertising duration}}"],
+        ["Yelp leads vs paying customers","{{08 - Yelp leads and paying customers}}"],
+        ["Yelp cancellation terms","{{09 - Yelp cancellation terms}}"],
+        ["Past-customer contact list","{{10 - Past customer contact list}}"]
+      ]
+    },
+    {
+      heading:"3. Website & Lead Handling",
+      rows:[
+        ["Website / domain / hosting control","{{11 - Website domain hosting control}}"],
+        ["Access for tracking / landing page","{{12 - Website access for tracking and landing page}}"],
+        ["Preferred first lead action","{{13 - Preferred first lead action}}"],
+        ["Dedicated landing page","{{14 - Openness to dedicated landing page}}"],
+        ["Lead response and follow-up","{{15 - Lead response and follow-up process}}"]
+      ]
+    },
+    {
+      heading:"4. Services, Areas & Capacity",
+      rows:[
+        ["Priority services","{{16 - Priority services}}"],
+        ["Other priority services","{{16b - Other priority services}}"],
+        ["Priority cities / exclusions","{{17 - Priority cities and excluded areas}}"],
+        ["Typical project value","{{18 - Typical completed project value}}"],
+        ["Preferred / excluded projects","{{19 - Preferred and excluded project types}}"],
+        ["Monthly additional capacity","{{20 - Monthly additional capacity}}"]
+      ]
+    },
+    {
+      heading:"5. Google Ads, Budget & Measurement",
+      rows:[
+        ["Old Google Ads account access","{{21 - Existing Google Ads account access}}"],
+        ["Previous Google advertising","{{22 - Previous Google advertising experience}}"],
+        ["Comfortable monthly ad budget","{{23 - Comfortable monthly Google ad budget}}"],
+        ["Preferred initial test period","{{24 - Preferred initial test period}}"],
+        ["What success should look like","{{25 - What success should look like}}"]
+      ]
+    }
+  ]
+};
+
+function replacePlaceholders(value,answers){
+  return String(value).replace(/\{\{([^}]+)\}\}/g,(_,key)=>{
+    const val=answers[key.trim()];
+    return val && String(val).trim() ? val : "No response provided";
+  });
+}
+
+function addPageHeader(doc,label){
+  doc.setFillColor(16,47,52);
+  doc.rect(0,0,612,28,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8);
+  doc.text('CUSTOM EXCHANGE WINDOWS  /  PRIVATE PLANNING REVIEW',42,18);
+  doc.setTextColor(20,35,38);
+  if(label){
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(125,140,142);
+    doc.text(label,570,18,{align:'right'});
+  }
+}
+
+async function makePdf(){
+  const answers=getAnswers();
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({unit:'pt',format:'letter',compress:true});
+  const W=612,H=792,ml=46,mr=46;
+  const dark=[16,47,52],brand=[24,77,83],muted=[92,111,113],soft=[245,248,246],line=[224,231,227],gold=[167,123,56];
+
+  // Cover
+  doc.setFillColor(...dark);doc.rect(0,0,W,H,'F');
+  doc.setFillColor(246,240,229);doc.roundedRect(46,56,54,54,15,15,'F');
+  doc.setTextColor(...dark);doc.setFont('helvetica','bold');doc.setFontSize(17);doc.text('CE',73,89,{align:'center'});
+  doc.setTextColor(189,211,206);doc.setFontSize(9);doc.text('CUSTOM EXCHANGE WINDOWS',46,146);
+  doc.setTextColor(255,255,255);doc.setFont('times','bold');doc.setFontSize(34);
+  doc.text(doc.splitTextToSize('Google Visibility & Lead Generation Planning Review',480),46,198);
+  doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(211,226,222);
+  doc.text('Prepared for '+PDF_TEMPLATE.preparedFor,46,310);
+  doc.text('Prepared by '+PDF_TEMPLATE.preparedBy,46,330);
+  const respondent=answers['Respondent name']||'Isabelle';
+  doc.setFillColor(255,255,255);doc.setDrawColor(255,255,255);
+  doc.roundedRect(46,390,520,132,18,18,'F');
+  doc.setTextColor(...dark);doc.setFont('helvetica','bold');doc.setFontSize(11);
+  doc.text('COMPLETED RESPONSE',68,421);
+  doc.setFont('times','bold');doc.setFontSize(25);doc.text(respondent,68,458);
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
+  doc.text(answers.email||'',68,480);
+  doc.text('Submitted '+new Date().toLocaleString(),68,500);
+  doc.setTextColor(180,201,197);doc.setFontSize(8);
+  doc.text('This document records discovery information only. It does not authorize advertising spend or account changes.',46,742);
+
+  // What Isabelle already shared
+  doc.addPage();addPageHeader(doc,'Context');
+  doc.setTextColor(...dark);doc.setFont('times','bold');doc.setFontSize(24);doc.text('What Isabelle had already shared',ml,68);
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
+  doc.text(doc.splitTextToSize('These points came from Isabelle before the questionnaire. They are included here so the final recommendation does not ask her to repeat herself.',520),ml,90);
+  doc.autoTable({
+    startY:124,margin:{left:ml,right:mr},
+    head:[['Topic','Client-provided context']],
+    body:PDF_TEMPLATE.alreadyShared,
+    theme:'grid',
+    styles:{font:'helvetica',fontSize:9,cellPadding:9,lineColor:line,lineWidth:.6,textColor:dark,valign:'top'},
+    headStyles:{fillColor:soft,textColor:brand,fontStyle:'bold'},
+    columnStyles:{0:{cellWidth:128,fontStyle:'bold'},1:{cellWidth:392}}
+  });
+  let y=doc.lastAutoTable.finalY+28;
+  doc.setFont('times','bold');doc.setFontSize(20);doc.setTextColor(...dark);doc.text('Working recommendation before the quote',ml,y); y+=16;
+  doc.autoTable({
+    startY:y+6,margin:{left:ml,right:mr},
+    body:PDF_TEMPLATE.recommendation,
+    theme:'plain',
+    styles:{font:'helvetica',fontSize:9,cellPadding:8,textColor:dark},
+    alternateRowStyles:{fillColor:soft},
+    columnStyles:{0:{cellWidth:118,fontStyle:'bold',textColor:brand},1:{cellWidth:402}}
+  });
+
+  // Answers
+  PDF_TEMPLATE.answerSections.forEach((section,idx)=>{
+    doc.addPage();addPageHeader(doc,'Responses '+(idx+1)+' / '+PDF_TEMPLATE.answerSections.length);
+    doc.setFont('times','bold');doc.setFontSize(23);doc.setTextColor(...dark);doc.text(section.heading,ml,68);
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...muted);
+    doc.text('Isabelle’s submitted answers',ml,88);
+    const rows=section.rows.map(([label,token])=>[label,replacePlaceholders(token,answers)]);
+    doc.autoTable({
+      startY:110,margin:{left:ml,right:mr},
+      body:rows,
+      theme:'grid',
+      styles:{font:'helvetica',fontSize:9,cellPadding:9,lineColor:line,lineWidth:.6,textColor:dark,valign:'top',overflow:'linebreak'},
+      alternateRowStyles:{fillColor:[249,251,249]},
+      columnStyles:{0:{cellWidth:178,fontStyle:'bold',textColor:brand},1:{cellWidth:342}},
+      didDrawPage:()=>{}
+    });
+  });
+
+  // Sources / next steps
+  doc.addPage();addPageHeader(doc,'Sources & next step');
+  doc.setFont('times','bold');doc.setFontSize(24);doc.setTextColor(...dark);doc.text('Sources used for the planning review',ml,68);
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
+  doc.text('These are the public references used to separate platform rules from client experience.',ml,90);
+  y=122;
+  PDF_TEMPLATE.sources.forEach(([label,url],i)=>{
+    if(y>700){doc.addPage();addPageHeader(doc,'Sources');y=62;}
+    doc.setFillColor(i%2?249:245, i%2?251:248, i%2?249:246);
+    doc.roundedRect(ml,y-14,520,45,9,9,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...dark);doc.text(label,ml+12,y);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...brand);
+    doc.textWithLink(url,ml+12,y+15,{url});
+    y+=54;
+  });
+  y+=18;
+  doc.setDrawColor(...line);doc.line(ml,y,566,y);y+=28;
+  doc.setFont('times','bold');doc.setFontSize(22);doc.setTextColor(...dark);doc.text('What happens next',ml,y);y+=20;
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...muted);
+  doc.text(doc.splitTextToSize('Olalekan will review these answers alongside the public business setup, then prepare a recommended order of work and quotation separating one-time setup, any website or landing-page work, ongoing advertising management, and the media budget paid directly to Google.',520),ml,y);
+  y+=66;
+  doc.setFillColor(...soft);doc.roundedRect(ml,y,520,66,12,12,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(...brand);doc.text('CLIENT RESPONSE',ml+14,y+22);
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(...dark);
+  doc.text((answers['Respondent name']||'Isabelle')+'  |  '+(answers.email||''),ml+14,y+44);
+
+  const total=doc.getNumberOfPages();
+  for(let p=2;p<=total;p++){
+    doc.setPage(p);
+    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(145,157,158);
+    doc.text('Custom Exchange Windows - Planning Review',ml,770);
+    doc.text(String(p)+' / '+String(total),566,770,{align:'right'});
+  }
+
+  return doc.output('blob');
+}
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!validateCurrent()) return;
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.textContent='Creating your PDF...';
+  try{
+    const blob=await makePdf();
+    const file=new File([blob],'Custom-Exchange-Isabelle-Planning-Review.pdf',{type:'application/pdf'});
+    const dt=new DataTransfer();dt.items.add(file);
+    document.getElementById('pdfAttachment').files=dt.files;
+    localStorage.removeItem('customExchangePremiumDraft');
+    btn.textContent='Submitting...';
+    form.submit();
+  }catch(err){
+    console.error(err);
+    btn.disabled=false;btn.textContent='Submit & create my PDF';
+    alert('I could not create the PDF on this device. Please try once more, or contact Olalekan and he will help you.');
+  }
 });
-loadDraft();update();
+
+loadDraft();
+updateUI();
 </script>
 </body>
 </html>
