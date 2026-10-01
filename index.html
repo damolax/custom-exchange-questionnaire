@@ -101,6 +101,7 @@ a{color:inherit}
 .topbar-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet);font-weight:800}
 .topbar-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .test-jump{border:1px solid var(--line-strong);background:#fff;color:var(--brand-dark);border-radius:11px;padding:8px 11px;font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}.test-jump:hover{background:var(--brand-soft)}
+.save-state{font-size:11px;font-weight:800;color:var(--quiet);white-space:nowrap;display:flex;align-items:center;gap:6px}.save-state:before{content:"";width:7px;height:7px;border-radius:50%;background:#aab6b2}.save-state.saved{color:var(--success)}.save-state.saved:before{background:var(--success)}
 .progress-wrap{width:210px;max-width:38vw}
 .progress-meta{font-size:11px;color:var(--quiet);font-weight:750;text-align:right;margin-bottom:6px}
 .progress{height:5px;background:#edf1ee;border-radius:99px;overflow:hidden}
@@ -239,6 +240,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
     <div class="topbar-label mobile-step">Private planning review</div>
     <div class="topbar-title" id="topTitle">Hi Isabelle, let’s start with what you already told me.</div>
   </div>
+  <div class="save-state" id="saveState">Not saved yet</div>
   <button type="button" class="test-jump" id="testJump">Test PDF: jump to submit</button>
   <div class="progress-wrap">
     <div class="progress-meta" id="progressMeta">1 of 8</div>
@@ -667,10 +669,11 @@ document.querySelectorAll('.next').forEach(btn=>btn.addEventListener('click',()=
   if(current<pages.length-1){current++;saveDraft();updateUI();}
 }));
 document.querySelectorAll('.back').forEach(btn=>btn.addEventListener('click',()=>{
-  if(current>0){current--;updateUI();}
+  if(current>0){current--;saveDraft();updateUI();}
 }));
 document.getElementById('testJump').addEventListener('click',()=>{
   current=pages.length-1;
+  saveDraft();
   updateUI();
 });
 
@@ -683,28 +686,82 @@ function getAnswers(){
   return out;
 }
 
-function saveDraft(){
-  const data={};
+const DRAFT_KEY='customExchangePremiumDraft';
+const saveState=document.getElementById('saveState');
+let saveTimer=null;
+
+function collectDraft(){
+  const values={};
   form.querySelectorAll('input,textarea,select').forEach(el=>{
     if(!el.name||el.name.startsWith('_')||el.type==='file') return;
     if(el.type==='radio'||el.type==='checkbox'){
-      if(el.checked)(data[el.name]??=[]).push(el.value);
-    }else data[el.name]=el.value;
+      if(el.checked)(values[el.name]??=[]).push(el.value);
+      else if(!(el.name in values)) values[el.name]=[];
+    }else{
+      values[el.name]=el.value;
+    }
   });
-  localStorage.setItem('customExchangePremiumDraft',JSON.stringify(data));
+  return {
+    values,
+    currentStep:current,
+    savedAt:new Date().toISOString()
+  };
 }
+
+function showSaved(timestamp){
+  if(!saveState) return;
+  const time=timestamp ? new Date(timestamp) : new Date();
+  saveState.textContent='Saved '+time.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  saveState.classList.add('saved');
+}
+
+function saveDraft(){
+  try{
+    const draft=collectDraft();
+    localStorage.setItem(DRAFT_KEY,JSON.stringify(draft));
+    showSaved(draft.savedAt);
+  }catch(e){
+    if(saveState){
+      saveState.textContent='Could not save';
+      saveState.classList.remove('saved');
+    }
+  }
+}
+
+function queueSave(){
+  if(saveState){
+    saveState.textContent='Saving...';
+    saveState.classList.remove('saved');
+  }
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveDraft,300);
+}
+
 function loadDraft(){
   try{
-    const data=JSON.parse(localStorage.getItem('customExchangePremiumDraft')||'{}');
+    const raw=localStorage.getItem(DRAFT_KEY);
+    if(!raw) return;
+    const draft=JSON.parse(raw);
+    const data=draft.values||draft;
     form.querySelectorAll('input,textarea,select').forEach(el=>{
       if(!(el.name in data)) return;
-      if(el.type==='radio'||el.type==='checkbox') el.checked=(data[el.name]||[]).includes(el.value);
-      else el.value=data[el.name];
+      if(el.type==='radio'||el.type==='checkbox'){
+        el.checked=Array.isArray(data[el.name]) && data[el.name].includes(el.value);
+      }else{
+        el.value=data[el.name]??'';
+      }
     });
+    if(Number.isInteger(draft.currentStep) && draft.currentStep>=0 && draft.currentStep<pages.length){
+      current=draft.currentStep;
+    }
+    if(draft.savedAt) showSaved(draft.savedAt);
   }catch(e){}
 }
-document.addEventListener('input',saveDraft);
+
+document.addEventListener('input',queueSave);
 document.addEventListener('change',saveDraft);
+window.addEventListener('beforeunload',saveDraft);
+document.addEventListener('visibilitychange',()=>{if(document.hidden) saveDraft();});
 
 const REVIEW_LABELS={
   "01 - Second Google Maps link":"Second Google Maps link",
@@ -965,7 +1022,7 @@ form.addEventListener('submit',async e=>{
     const file=new File([blob],'Custom-Exchange-Isabelle-Planning-Review.pdf',{type:'application/pdf'});
     const dt=new DataTransfer();dt.items.add(file);
     document.getElementById('pdfAttachment').files=dt.files;
-    localStorage.removeItem('customExchangePremiumDraft');
+    saveDraft();
     btn.textContent='Submitting...';
     form.submit();
   }catch(err){
