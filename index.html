@@ -491,7 +491,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
   <div class="question-stack">
     <div class="q">
       <div class="q-top"><span class="q-no">16</span><h3>Which services would your husband most like Google to generate enquiries for?</h3></div>
-      <p class="help">Select everything that matters. If there is a service I missed, add it below.</p>
+      <p class="help">Select at least one. Choose everything that matters. If there is a service I missed, add it below.</p>
       <div class="options">
         <label class="option"><input type="checkbox" name="16 - Priority services" value="Full window replacement">Full window replacement</label>
         <label class="option"><input type="checkbox" name="16 - Priority services" value="Energy-efficient replacement windows">Energy-efficient replacement windows</label>
@@ -647,8 +647,22 @@ function updateUI(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function validatePriorityServices(){
+  const group=[...form.querySelectorAll('input[type="checkbox"][name="16 - Priority services"]')];
+  if(group.length && !group.some(x=>x.checked)){
+    const page=group[0].closest('.page');
+    const idx=pages.indexOf(page);
+    if(idx>=0 && current!==idx){current=idx;updateUI();}
+    setDeliveryStatus && setDeliveryStatus('Please choose at least one priority service before continuing.','warn');
+    setTimeout(()=>group[0].focus(),80);
+    return false;
+  }
+  return true;
+}
+
 function validateCurrent(){
   if(TEST_MODE) return true;
+  if(pages[current].querySelector('input[type="checkbox"][name="16 - Priority services"]') && !validatePriorityServices()) return false;
   const required=[...pages[current].querySelectorAll('[required]')];
   const checkedGroups=new Set();
   for(const el of required){
@@ -1073,6 +1087,7 @@ async function makePdf(){
 }
 
 function validateAllRequiredFields(){
+  if(!validatePriorityServices()) return false;
   const required=[...form.querySelectorAll('[required]')];
   const checkedRadioNames=new Set();
 
