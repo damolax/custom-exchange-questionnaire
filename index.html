@@ -247,7 +247,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
 </header>
 
 <div class="stage">
-<form id="discoveryForm" action="https://formsubmit.co/olamocreate@gmail.com" method="POST" enctype="multipart/form-data">
+<form id="discoveryForm" action="https://formsubmit.co/olamocreate@gmail.com" method="POST" enctype="multipart/form-data" novalidate>
 <input type="hidden" name="_subject" value="Custom Exchange Windows - Isabelle completed planning review">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_next" value="https://damolax.github.io/custom-exchange-questionnaire/thanks.html">
@@ -976,6 +976,9 @@ form.addEventListener('submit',async e=>{
 });
 
 loadDraft();
+if(TEST_MODE){
+  form.querySelectorAll('[required]').forEach(el=>el.removeAttribute('required'));
+}
 updateUI();
 </script>
 </body>
