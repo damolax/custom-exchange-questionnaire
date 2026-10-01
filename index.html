@@ -584,7 +584,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
 
   <div class="submit-box">
     <h3>Your details</h3>
-    <p>Add the email you’d like attached to this response. Your completed answers will also be turned into a PDF and sent to me automatically when you submit.</p>
+    <p>Add the email you’d like attached to this response. Your completed answers will be turned into a PDF. When you choose “Send PDF & response to Olamo,” the PDF will be attached to the submission email.</p>
   </div>
 
   <div class="question-stack">
@@ -608,7 +608,7 @@ input:focus,textarea:focus,select:focus{border-color:#639087;box-shadow:0 0 0 4p
   <div class="signature">Olalekan</div>
 
   <div class="delivery-actions">
-    <button id="sendDirectBtn" type="button" class="btn primary">Send response directly to Olamo</button>
+    <button id="sendDirectBtn" type="button" class="btn primary">Send PDF & response to Olamo</button>
     <button id="downloadPdfBtn" type="button" class="btn outline">Download PDF</button>
     <button id="emailPdfBtn" type="button" class="btn outline">Email PDF to Olamo</button>
   </div>
@@ -1166,41 +1166,45 @@ sendDirectBtn.addEventListener('click',async()=>{
   const original=sendDirectBtn.textContent;
   sendDirectBtn.disabled=true;
   sendDirectBtn.textContent='Creating PDF...';
-  setDeliveryStatus('Preparing your response and PDF...','warn');
+  setDeliveryStatus('Preparing your PDF for email delivery...','warn');
+
   try{
     const file=await createPdfFile();
-    const fd=new FormData(form);
-    fd.set('attachment',file,file.name);
-    fd.set('_subject','Custom Exchange Windows - Isabelle completed planning review');
-    fd.set('_template','table');
-    fd.delete('_next');
-    sendDirectBtn.textContent='Sending to Olamo...';
 
-    const response=await fetch('https://formsubmit.co/ajax/olamocreate@gmail.com',{
-      method:'POST',
-      body:fd,
-      headers:{'Accept':'application/json'}
-    });
+    // FormSubmit documents file uploads through a normal multipart/form-data
+    // form submission. Put the generated PDF into the hidden file input.
+    const fileInput=document.getElementById('pdfAttachment');
+    let attached=false;
 
-    let data={};
-    try{ data=await response.json(); }catch(e){}
-    if(!response.ok || data.success===false){
-      throw new Error(data.message||'Direct delivery was not confirmed.');
+    try{
+      const dt=new DataTransfer();
+      dt.items.add(file);
+      fileInput.files=dt.files;
+      attached=fileInput.files && fileInput.files.length===1;
+    }catch(assignErr){
+      console.error('Could not place PDF into file input',assignErr);
+    }
+
+    if(!attached){
+      // Preserve a local copy so Isabelle never loses the generated PDF.
+      downloadPdfFile(file);
+      throw new Error('This browser would not attach the generated PDF automatically. The PDF has been downloaded instead.');
     }
 
     saveDraft();
-    setDeliveryStatus('Sent. Your response and PDF were submitted to olamocreate@gmail.com.','ok');
-    sendDirectBtn.textContent='Response sent';
+    sendDirectBtn.textContent='Sending PDF to Olamo...';
+    setDeliveryStatus('Sending the completed response with the PDF attached...','warn');
+
+    // HTMLFormElement.submit() deliberately bypasses our submit-event blocker
+    // and native validation. The form already uses POST + multipart/form-data.
+    HTMLFormElement.prototype.submit.call(form);
   }catch(err){
     console.error(err);
-    setDeliveryStatus('Direct email delivery could not be confirmed. Please use “Email PDF to Olamo” or “Download PDF” below so your response is not lost.','error');
+    setDeliveryStatus((err && err.message ? err.message : 'The PDF could not be sent automatically.')+' You can use “Email PDF to Olamo” or “Download PDF” below.','error');
     sendDirectBtn.textContent=original;
     sendDirectBtn.disabled=false;
-    return;
   }
-  sendDirectBtn.disabled=false;
 });
-
 form.addEventListener('submit',e=>e.preventDefault());
 
 loadDraft();
